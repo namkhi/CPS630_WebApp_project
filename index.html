@@ -114,7 +114,12 @@ app.controller("londonCtrl", function ($scope) {
 app.controller("parisCtrl", function ($scope) {
     $scope.msg = "I love Paris";
 });
-
+app.controller("signIn", function ($scope) {
+    $scope.myTxt = "You hace clicked button";
+    $scope.signInFunc = () => {
+        console.log("Hello we pressed sign in");
+    }
+});
 </script>
 
 </body>
