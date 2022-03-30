@@ -1,0 +1,161 @@
+body {
+    font-family: "open-sans", sans-serif;
+    background-color: rgb(65, 103, 206,0.3);
+    margin-top: 100px;
+    min-width: 500px;
+}
+.logo{
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    align-self: left;
+}
+ul {
+    max-height: 7vh;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(65, 103, 206);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    border: 1px solid white;
+}
+
+li {
+    float: left;
+    border-right: 1px solid #bbb;
+    width: 100%;
+}
+  
+li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    height: 100%;
+    text-decoration: none;
+}
+  
+  /* Change the link color to #111 (black) on hover */
+  li a:hover {
+    background-color: rgb(13, 56, 148);
+  }
+
+  li:last-child {
+    border-right: none;
+  }
+
+.panel{
+  border-right: 1px solid rgb(179, 179, 179);
+  display: block;
+}
+
+
+
+.card-group{
+  padding: 10px;
+}
+
+.panelTitle{
+  font-size: 1.1rem;
+}
+
+iframe{
+  height: 100%;
+  width: 100%;
+}
+
+.row{
+  height: 100%;
+  margin: auto;
+}
+.container-fluid{
+  height: calc(100vh - 200px);
+}
+
+.clear, .checkout{
+background-color: transparent;
+border: solid 1px black;
+border-radius: 5px;
+outline: none;
+}
+
+.card-img-top{
+  padding: 4;
+  max-width:160px;
+  max-height:160px;
+  align-self: center;
+}
+
+
+
+
+
+.card{
+ margin-right: auto;
+ margin-left: auto;
+ margin-top: 15px;
+
+}
+
+.card:hover{
+  transform: scale(1.02);
+  box-shadow: 3px 3px 10px;
+}
+
+.card-body{
+ padding: 0.8rem;
+}
+
+.clearCart{
+  background-color: transparent;
+  border: solid 1px black;
+  border-radius: 5px;
+  outline: none;
+  display: inline-block;
+}
+
+#dropdownMenuButton{
+  max-height: 7vh;
+  list-style-type: none;
+  background-color: rgb(65, 103, 206);
+  position: absolute;
+  top: 10px;
+  height: 100%;
+  display: flex;
+  padding: 5% 0px 0px 5%;
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  position: static;
+  top: 0;
+  padding: 0;
+  text-align: center;
+  line-height: 7vh;
+  display: flex;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.dropdown {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: 100%;
+  
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+#loading{
+  text-align: center;
+  background: url('public/loader.gif') no-repeat center;
+  height: 150px;
+}
