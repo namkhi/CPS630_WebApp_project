@@ -47,7 +47,7 @@
         </div>
       </div>
     </li>
-    <li><a href="cart.php">Shopping Cart</a></li>
+    <li><a href="#!cart">Shopping Cart</a></li>
   </ul>
 
 
@@ -90,7 +90,7 @@ app.config(function($routeProvider) {
         controller : "londonCtrl"
     })
     .when("/contact", {
-        templateUrl : "php/contact.php",
+        templateUrl : "views/contact.html",
         controller : "londonCtrl"
     })
     .when("/signup", {
@@ -103,6 +103,10 @@ app.config(function($routeProvider) {
     })
     .when("/review", {
         templateUrl : "php/review.php",
+        controller : "londonCtrl"
+    })
+    .when("/cart", {
+        templateUrl : "php/cart.php",
         controller : "londonCtrl"
     })
  
