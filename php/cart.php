@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="contactStyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="icon" href="public/favicon.ico" sizes="any">
-    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="css/cart.css">
     
 
     <title>Shop</title>
@@ -313,7 +313,4 @@
 </script>
 
 <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY372hbYFoJP7f_HVnz0n0rmLOk19X3jw&callback=initMap"></script> -->
-<script
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY372hbYFoJP7f_HVnz0n0rmLOk19X3jw&callback=initMap&v=weekly&channel=2"
-async defer
-></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY372hbYFoJP7f_HVnz0n0rmLOk19X3jw&callback=initMap&v=weekly&channel=2"></script>
