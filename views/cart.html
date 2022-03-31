@@ -15,12 +15,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="icon" href="public/favicon.ico" sizes="any">
     <link rel="stylesheet" href="css/cart.css">
+    <script src="/assets/gmap3.js?body=1" type="text/javascript"></script>
     
 
     <title>Shop</title>
   </head>
   <body>
-
 
     <div class="container-fluid" style="width: 100vw">
       <div class="row">
@@ -77,7 +77,7 @@
 
             </div>
 
-            <div id="map" style="border:5px solid rgb(0, 0, 0);height:500px; width:500px; display:block; margin-left:auto; margin-right:auto; text-align:center;"></div>
+            <div   ng-controller="cartCtrl"  id="map" style="border:5px solid rgb(0, 0, 0);height:500px; width:500px; display:block; margin-left:auto; margin-right:auto; text-align:center;"></div>
               
             </div>
         </div>
@@ -258,57 +258,8 @@
   
   
     }
-  function initMapS()
-    {
-    
-// location in map marker info ex//5
-  var location = {lat: 43.72538784490703, lng: -79.45216055559094 };
-  var location2 = {lat: 43.65586404205865, lng:  -79.38256298777402};
-  var marks = [ location, location2 ]
-
-    var mapOptions = {
-        center: new google.maps.LatLng(marks[0].lat, marks[0].lng)
-    }
-
-  var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-  var latlngbounds = new google.maps.LatLngBounds();
-
-  for (var i = 0; i < marks.length; i++) {
-            var data = marks[i]
-            var myLatlng = new google.maps.LatLng(data.lat, data.lng);
-            var marker = new google.maps.Marker({
-                position: myLatlng,
-                map: map,
-                title: data.title
-            });
- 
-            //Extend each marker's position in LatLngBounds object.
-            latlngbounds.extend(marker.position);
-        }
-    
-    //Get the boundaries of the Map.
-    var bounds = new google.maps.LatLngBounds();
- 
-    //Center map and adjust Zoom based on the position of all markers.
-    map.setCenter(latlngbounds.getCenter());
-    map.fitBounds(latlngbounds);
-
-  var marker2 = new google.maps.Marker(
-    {position: location, map: map});    
-  var infoWindow1 = new google.maps.InfoWindow(
-    { content: "<h5> Mom </h5>" });
-  marker2.addListener("click", function()
-    { infoWindow1.open(map, marker2); });
-  var marker3 = new google.maps.Marker(
-    {position: location2, map: map});    
-  var infoWindow2 = new google.maps.InfoWindow(
-    { content: "<h5> Dad </h5>"});
-  marker2.addListener("click", function()
-    { infoWindow2.open(map, marker3); });
-}
 
 
 </script>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY372hbYFoJP7f_HVnz0n0rmLOk19X3jw&callback=initMap"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY372hbYFoJP7f_HVnz0n0rmLOk19X3jw"></script>
