@@ -20,7 +20,8 @@
 
 <body>
     <div class="container">
-      <form action="http://localhost/CPS630_iter3/php/signIn.php" method="post">
+
+      <form ng-submit="signInFunc()" ng-controller="signIn">
         <label for="email">Email</label>
         <input type="email" id="email" name="email" placeholder="placeholder@gmail.com">    
 
@@ -34,7 +35,7 @@
         <a style="text-align: center; display:block; margin-left: auto; margin-right: auto; border-radius:20px; color:black;" href="signUp.html" role="button">Sign Up</a>
       </form>
     </div>
-
+    
 
    
 </body>

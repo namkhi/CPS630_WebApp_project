@@ -23,7 +23,7 @@
   
   <ul>
     <li><img class="logo" src="public/images/logo.png"></li>
-    <li><a href="#!/">Home </i></a></li>
+    <li><a href="#!/">Home</a></li>
     <li><a href="#!about">About us </a></li>
     <li><a href="#!contact">Contact us</a></li>
     <li><a href="#!signup">Sign Up</a></li>
@@ -118,7 +118,12 @@ app.controller("londonCtrl", function ($scope) {
 app.controller("parisCtrl", function ($scope) {
     $scope.msg = "I love Paris";
 });
-
+app.controller("signIn", function ($scope) {
+    $scope.myTxt = "You hace clicked button";
+    $scope.signInFunc = () => {
+        console.log("Hello we pressed sign in");
+    }
+});
 </script>
 
 </body>
