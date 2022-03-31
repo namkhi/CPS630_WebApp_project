@@ -34,20 +34,21 @@
             <p>Clean Green, and Free Delivery on Orders over $25</p>
         </div>
 
-            <div class="product-container">    
-    
+            <div class="product-container" ng-controller="shopController" ng>    
+            <a href="#!/shop/apple">
             <div class="product-box" id="apple">
-        
+                
                 <div class="product-img">
 
                 <img src="public/images/apple.png">
                 </div>
                 <div class="product-details">
-                    <a href="#" class="p-name">Shop Apple Products</a>         
+                    <a href="#!shop/apple" class="p-name">Shop Apple Products</a>         
                 </div>
             </div>
-
+            </a>
             
+            <a href="#!/shop/samsung">
             <div class="product-box" id="samsung">
             
                 <div class="product-img">
@@ -60,9 +61,9 @@
                 
                 </div>
             </div>
+            </a>
 
-
-        
+            <a href="#!/shop/accessories">
             <div class="product-box" id="accessories">
         
             <div class="product-img">
@@ -75,9 +76,9 @@
             
             </div>
             </div>
+            </a>
 
-
-        
+            <a href="#!/shop/phones">
             <div class="product-box" id="phones">    
             <div class="product-img">
 
@@ -89,10 +90,10 @@
         
             </div>
             </div>
+            </a>
 
 
-
-            
+            <a href="#!/shop/all">
             <div class="product-box" id="all">      
                 <div class="product-img">
                     <img src="public/images/shopall.png">
@@ -101,7 +102,8 @@
                     <a href="#" class="p-name">Shop All</a>
              
                 </div>
-              </div>
+            </div>
+            </a>
             
 
 
@@ -112,4 +114,4 @@
 
 </html>
 
-<script src="index.js" type="module"></script>
+<script src="/js/index.js" type="module"></script>

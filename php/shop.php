@@ -13,9 +13,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="icon" href="public/favicon.ico" sizes="any">
     <script src="https://kit.fontawesome.com/d05f99dbac.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="shopStyle.css">
+    <link rel="stylesheet" href="../css/shopStyle.css">
     <!-- <script src="shop.js" type="module"></script> -->
-    <script src="draggable.js"></script>
+    <script src="../js/draggable.js"></script>
     <title>Shop</title>
   </head>
   <body onload="loadDetails()">

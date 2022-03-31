@@ -23,7 +23,7 @@
   
   <ul>
     <li><img class="logo" src="public/images/logo.png"></li>
-    <li><a href="#!/">Home</a></li>
+    <li><a href="#">Home</a></li>
     <li><a href="#!about">About us </a></li>
     <li><a href="#!contact">Contact us</a></li>
     <li><a href="#!signup">Sign Up</a></li>
@@ -37,11 +37,11 @@
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a class="dropdown-item submenudrop" id="submenudrop"> Shopping <i class="fa-solid fa-arrow-down"></i></i></a>
           <div class = "submenu" style="display: none">
-            <a class="dropdown-item" href="php/shop.php?id=all"><i class="fa-solid fa-circle-arrow-right"></i> All Products </a>
-            <a class="dropdown-item" href="php/shop.php?id=phones"><i class="fa-solid fa-circle-arrow-right"></i> All Phones </a>
-            <a class="dropdown-item" href="php/shop.php?id=apple"><i class="fa-solid fa-circle-arrow-right"></i> Apple Phones </a>
-            <a class="dropdown-item" href="php/shop.php?id=samsung"><i class="fa-solid fa-circle-arrow-right"></i> Samsung Phones </a>
-            <a class="dropdown-item" href="php/shop.php?id=accessories"><i class="fa-solid fa-circle-arrow-right"></i> Browse Accessories </a>
+            <a class="dropdown-item" href="#!/shop/all"><i class="fa-solid fa-circle-arrow-right"></i> All Products </a>
+            <a class="dropdown-item" href="#!/shop/phones"><i class="fa-solid fa-circle-arrow-right"></i> All Phones </a>
+            <a class="dropdown-item" href="#!/shop/apple"><i class="fa-solid fa-circle-arrow-right"></i> Apple Phones </a>
+            <a class="dropdown-item" href="#!/shop/samsung"><i class="fa-solid fa-circle-arrow-right"></i> Samsung Phones </a>
+            <a class="dropdown-item" href="#!/shop/accessories"><i class="fa-solid fa-circle-arrow-right"></i> Browse Accessories </a>
           </div>
           <a class="dropdown-item" href="locations.php">Delivery</a>
         </div>
@@ -109,6 +109,12 @@ app.config(function($routeProvider) {
         templateUrl : "php/cart.php",
         controller : "londonCtrl"
     })
+    .when("/shop/:id",{
+        templateUrl: "php/shop.php",
+        controller: "shopController"
+    })
+    .otherwise({redirectTo:'/'});
+    
  
 });
 
@@ -123,6 +129,9 @@ app.controller("signIn", function ($scope) {
     $scope.signInFunc = () => {
         console.log("Hello we pressed sign in");
     }
+});
+app.controller("shopController", function($scope, $routeParams){
+console.log($routeParams.id);
 });
 </script>
 
