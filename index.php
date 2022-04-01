@@ -405,7 +405,9 @@ app.controller("signIn", function ($scope) {
         console.log("Hello we pressed sign in");
     }
 });
-
+app.controller("shopController", function($scope, $routeParams){
+console.log($routeParams.id);
+});
 
 </script>
 <script>
