@@ -20,6 +20,7 @@
 </script>
 
 <body ng-app="login_register_app" >
+<body ng-app="myApp" >
   
   <ul>
     <li><img class="logo" src="public/images/logo.png"></li>
