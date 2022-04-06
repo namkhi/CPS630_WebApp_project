@@ -204,7 +204,7 @@ session_start();
   </ul>
 
   <p id="saleTimer" style="font-weight: bold; border-style: solid; border-color:gold; background-color:gold; color:red; text-align:center; text-shadow: black 0px 0px 2px;"></p>  
-<div ng-view>
+  <div ng-view>
   
 </div>
 
@@ -222,13 +222,49 @@ session_start();
 </html>
 
 <script>
+// (function() {
+//   var start = new Date;
+//   start.setHours(15, 0, 0); // 11pm
+
+//   function pad(num) {
+//     return ("0" + parseInt(num)).substr(-2);
+//   }
+
+//   function tick() {
+//     var now = new Date;
+//     if (now > start) { // too late, go to tomorrow
+//       document.getElementById('time').innerHTML = "EXPIRED";
+//       // start.setDate(start.getDate() + 1);
+//     }
+//     var remain = ((start - now) / 1000);
+//     var hh = pad((remain / 60 / 60) % 60);
+//     var mm = pad((remain / 60) % 60);
+//     var ss = pad(remain % 60);
+//     document.getElementById('time').innerHTML =
+//       hh + ":" + mm + ":" + ss;
+//     setTimeout(tick, 1000);
+//   }
+
+//   document.addEventListener('DOMContentLoaded', tick);
+// })();
+
 
 var today = new Date();
-today.setHours(today.getHours() + 1);
+//FINISH
+today.setHours(15,0,0);
+today.setMinutes(0,0,0);
 
 // Set the date we're counting down to
+//grab timestamp from database
+var countdown = new Date();
+//START
+countdown.setHours(14,0,0)
+countdown.setMinutes(0,0,0)
 var countDownDate = new Date(today).getTime();
-
+var now = new Date().getTime()
+diff= (now - countdown);
+if (diff > 0 && diff < 3600000 ) {
+console.log(diff);
 // Update the count down every 1 second
 var x = setInterval(function() {
 
@@ -254,7 +290,11 @@ var x = setInterval(function() {
     document.getElementById("saleTimer").innerHTML = "EXPIRED";
   }
 }, 1000);
-
+}
+else{
+  // If the count down is finished, write some text
+    document.getElementById("saleTimer").innerHTML = "EXPIRED";
+}
 </script>
 
 
@@ -337,7 +377,7 @@ app.config(function($routeProvider) {
     })
     .when("/review", {
         templateUrl : "views/review.php",
-        controller : "londonCtrl"
+        controller : "formcontroller"
     })
     .when("/cart", {
         templateUrl : "views/cart.html",
@@ -520,11 +560,36 @@ app.controller('cartCtrl', ['$scope', function($scope) {
   }]);
 
 
-
-
-app.controller("londonCtrl", function ($scope) {
-    $scope.msg = "I love Paris";
+  app.controller("formcontroller", function($scope, $http){
+    $scope.reviewSubmit = {};
+    $scope.reviewSubmitData = function(){
+        $http({
+            method: 'POST',
+            url: 'views/reviewSubmit.php',
+            data:$scope.reviewSubmit,
+        }).then(function (data){
+            console.log(data) 
+               if(data.data.error)
+               {
+                $scope.errorFirstname = data.data.error.first_name;
+                $scope.errorLastname = data.data.error.last_name;
+                $scope.erroraddress = data.data.error.address;
+                $scope.successInsert = null;
+               }
+               else
+               {
+                $scope.reviewSubmit = null;
+                $scope.errorFirstname = null;
+                $scope.errorLastname = null;
+                $scope.erroraddress = null;
+                $scope.successInsert = data.data.message;
+               } 
+        },function (error){
+            console.log(error, 'can not post data.');
+        });
+    }
 });
+
 app.controller("contactCtrl", function ($scope) {
     
   });
