@@ -35,7 +35,7 @@ if(empty($error))
 {
 
  $query = "
- SELECT * FROM register 
+ SELECT * FROM usertb
  WHERE email = :email
  ";
  $statement = $connect->prepare($query);
@@ -46,13 +46,20 @@ if(empty($error))
   {
    foreach($result as $row)
    {
-    if($form_data->password == $row["password"])
+         
+    $dbsalt = $row["salt"];
+    $dbpassword = $row["pw"];
+    $password = $form_data->password;
+    
+    if(md5($password.$dbsalt) == $dbpassword)
     {
      $_SESSION["name"] = $row["name"];
+     
+     
     }
     else
     {
-     $validation_error = 'Wrong Password';
+     $validation_error = 'Wrong Password' ;
     }
    }
   }

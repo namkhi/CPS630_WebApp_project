@@ -20,7 +20,7 @@ input, textarea {
     border-radius: 20px;
     background-color: rgb(65, 103, 206);
     padding: 20px;
-    position:relative;
+    /* position:relative; */
     display: block;
     margin-top: 100px;
 
@@ -36,7 +36,7 @@ input, textarea {
 }
 
 
-/* ul{
+ul{
     max-height: 7vh;
     list-style-type: none;
     margin: 0;
@@ -48,7 +48,7 @@ input, textarea {
     width: 100%;
     display: flex;
     border: 1px solid white;
-} */
+}
  
 #dropdownMenuButton{
     max-height: 7vh;

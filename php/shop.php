@@ -112,7 +112,7 @@
   </script>
 
 
-  <?php include("navbar.php"); ?>
+  
     <div class="container-fluid gx-2">
       
       <div class="row">

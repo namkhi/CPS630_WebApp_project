@@ -39,7 +39,7 @@
 
 <?php 
 
-include('../db_connection.php');
+include('./db_connection.php');
     if( isset($_POST["selectSubmit"])) {
     $table = $_POST["table"];
     // $sqlCol = "SELECT * FROM assignment_1.COLUMNS WHERE TABLE_NAME = $table";

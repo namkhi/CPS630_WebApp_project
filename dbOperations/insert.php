@@ -114,7 +114,7 @@
 
 <?php 
 
-include('../db_connection.php');
+include('./db_connection.php');
     if( isset($_POST["orderSubmit"])) {
     $date_issued = $_POST["date_issued"];
     $date_received = $_POST["date_received"];

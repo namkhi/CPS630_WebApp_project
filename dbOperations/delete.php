@@ -34,7 +34,7 @@
 
 <?php 
 
-include('../db_connection.php');
+include('./db_connection.php');
     if( isset($_POST["deleteSubmit"])) {
     $table = $_POST["table"];
     $key = $_POST["key"];

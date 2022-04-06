@@ -1,9 +1,12 @@
+<?php 
+header("Content-type: text/css");
+?>
 body{
     font-family: "open-sans", sans-serif;
     background-color: rgb(65, 103, 206,0.3);
 }
 
-input, textarea {
+input, select, textarea {
     width: 100%; 
     padding: 12px; 
     border: 1px solid #ccc; 
@@ -20,7 +23,7 @@ input, textarea {
     border-radius: 20px;
     background-color: rgb(65, 103, 206);
     padding: 20px;
-    position:relative;
+    /* position:relative; */
     display: block;
     margin-top: 100px;
 
@@ -36,7 +39,7 @@ input, textarea {
 }
 
 
-/* ul{
+ul{
     max-height: 7vh;
     list-style-type: none;
     margin: 0;
@@ -48,7 +51,7 @@ input, textarea {
     width: 100%;
     display: flex;
     border: 1px solid white;
-} */
+}
  
 #dropdownMenuButton{
     max-height: 7vh;
@@ -138,7 +141,7 @@ li a {
     font-size: 0.9rem;
 }
 .product-container{
-    width:95%;
+    width:90%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -252,40 +255,4 @@ border-radius: 100px;
 width: 150px;
 height: 150px;
 margin-bottom: 10px;
-}
-
-.rate {
-    float: right;
-    height: 46px;
-    padding: 0 10px;
-}
-.rate:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
-}
-.rate:not(:checked) > label {
-    float:right;
-    width:1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:30px;
-    color:#ccc;
-}
-.rate:not(:checked) > label:before {
-    content: '★ ';
-}
-.rate > input:checked ~ label {
-    color: #ffc700;    
-}
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
-    color: #deb217;  
-}
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
-    color: #c59b08;
 }

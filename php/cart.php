@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="css/contactStyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="icon" href="public/favicon.ico" sizes="any">
-    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="../css/cart.css">
     
 
     <title>Shop</title>

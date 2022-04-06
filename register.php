@@ -8,6 +8,11 @@ $form_data = json_decode(file_get_contents('php://input'));
 
 $message = '';
 $validation_error = '';
+$salt = generateRandomSalt();
+$data[':salt'] = $salt;
+$data[':telephone'] = $form_data->telephone;
+$data[':address'] = $form_data->address;
+$data[':citycode'] = $form_data->citycode;
 
 if(empty($form_data->name))
 {
@@ -40,13 +45,14 @@ if(empty($form_data->password))
 }
 else
 {
- $data[':password'] = $form_data->password;
+    $data[':password'] = md5(($form_data->password).$salt);
+    // $data[':password'] = password_hash($form_data->password, PASSWORD_DEFAULT);
 }
 
 if(empty($error))
 {
  $query = "
- INSERT INTO register (name, email, password) VALUES (:name, :email, :password)
+ INSERT INTO usertb (name, telephone, email, address, citycode, pw, salt) VALUES (:name, :telephone, :email, :address, :citycode, :password, :salt)
  ";
  $statement = $connect->prepare($query);
  if($statement->execute($data))
@@ -65,6 +71,13 @@ $output = array(
 );
 
 echo json_encode($output);
+
+
+function generateRandomSalt(){
+    //The recent versions of XAMPP for Windows runs PHP 7.x which are NOT compatible with mbcrypt.
+    //return base64_encode(mcrypt_create_iv(12), MCRYPT_DEV_URANDOM);
+    return substr(md5(microtime()), 0, 8);
+  }
 
 
 ?>

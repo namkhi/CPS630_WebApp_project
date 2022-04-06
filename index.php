@@ -38,7 +38,7 @@ session_start();
 
  <body ng-app="login_register_app"> 
 
-  <div  ng-controller="login_register_controller" class="container form_style">
+  <div  ng-controller="login_register_controller" class="container-fluid form_style">
    <?php
    if(!isset($_SESSION["name"]))
    {
@@ -50,7 +50,7 @@ session_start();
 
    <div class="panel panel-default" ng-show="login_form">
     <div class="panel-heading">
-     <h3 class="panel-title">Login</h3>
+     <h3 class="panel-title">Welcome to Smart Customer Service</h3>
     </div>
     <div class="panel-body">
      <form method="post" ng-submit="submitLogin()">
@@ -65,7 +65,7 @@ session_start();
       <div class="form-group" align="center">
        <input type="submit" name="login" class="btn btn-primary" value="Login" />
        <br />
-       <input type="button" name="register_link" class="btn btn-primary btn-link" ng-click="showRegister()" value="Register" />
+       <input type="button" style="margin-top: 0.5rem;" name="register_link" class="btn btn-primary btn-link" ng-click="showRegister()" value="Register" />
       </div>
      </form>
     </div>
@@ -77,11 +77,7 @@ session_start();
     </div>
     <div class="panel-body">
      <form method="post" ng-submit="submitRegister()">
-      <div class="form-group">
-       <label>Enter Your Name</label>
-       <input type="text" name="name" ng-model="registerData.name" class="form-control" />
-      </div>
-      <div class="form-group">
+     <div class="form-group">
        <label>Enter Your Email</label>
        <input type="text" name="email" ng-model="registerData.email" class="form-control" />
       </div>
@@ -89,29 +85,52 @@ session_start();
        <label>Enter Your Password</label>
        <input type="password" name="password" ng-model="registerData.password" class="form-control" />
       </div>
-      <div class="form-group" align="center">
+      <div class="form-group">
+       <label>Enter Your Name</label>
+       <input type="text" name="name" ng-model="registerData.name" class="form-control" />
+      </div>
+
+      <div class="form-group">
+       <label>Enter Your Address</label>
+       <input type="text" name="address" ng-model="registerData.address" class="form-control" />
+      </div>
+      <div class="form-group">
+       <label>Enter Your City Code</label>
+       <input type="text" name="citycode" ng-model="registerData.citycode" class="form-control" />
+      </div>
+      <div class="form-group">
+       <label>Enter Your Birthday</label>
+       <input type="date" name="birthday" ng-model="registerData.birthday" class="form-control" />
+      </div>
+      <div class="form-group">
+       <label>Enter Your Telephone Number</label>
+       <input type="number" name="telephone" ng-model="registerData.telephone" class="form-control" />
+      </div>
+   
+      <div class="form-group" align=center>
        <input type="submit" name="register" class="btn btn-primary" value="Register" />
        <br />
-       <input type="button" name="login_link" class="btn btn-primary btn-link" ng-click="showLogin()" value="Login" />
+
+       <input type="button" style="margin-top: 0.5rem;" name="login_link" class="btn btn-primary btn-link" ng-click="showLogin()" value="Login" />
       </div>
      </form>
     </div>
    </div>
    <?php
    }
-   else
-   {
-   ?>
+   else if($_SESSION["name"] == "admin") {
+     ?>
 
-<!-- <body ng-module="myApp" >  -->
+
+<!-- ADMIN MODE HERE -->
   
-  <ul>
+<ul>
     <li><img class="logo" src="public/images/logo.png"></li>
-    <li ng-class="disabled" id="nav"><a href="#!home">Home</a></li>
+    <li ng-class="disabled" id="nav"><a href="#!home">ADMIN</a></li>
     <li ng-class="disabled" id="nav"><a href="#!about">About us </a></li>
     <li class="enabled" id="nav"><a href="#!contact">Contact us</a></li>
-    <li><a href="#!signUp">Sign Up</a></li>
-    <li><a href="#">Sign-in</i></a></li>
+    <!-- <li><a href="#!signUp">Sign Up</a></li>
+    <li><a href="#">Sign-in</i></a></li> -->
     <li class="enabled" id="nav"><a href="#!review">Reviews</a></li>
     <li class="enabled" id="nav">
       <div class="dropdown">
@@ -132,9 +151,59 @@ session_start();
       </div>
     </li>
     <li  class="enabled" id="nav"><a href="#!cart">Shopping Cart</a></li>
+    <li style="background-color:rgb(255,255,10);"><a href="logout.php">Logout</i></a></li>
+  </ul>
+  <div style="display: flex; justify-content: center; align-items: center;">
+           <a href="dbOperations/insert.php"> <button type="button" style="display:inline-block;">Insert Data</button></a>
+            <a href="dbOperations/select.php"> <button type="button" style="display:inline-block;">Select Data</button></a>
+            <a href="dbOperations/update.php"> <button type="button" style="display:inline-block;">Update Data</button></a>
+            <a href="dbOperations/delete.php"> <button type="button" style="display:inline-block;">Delete Data</button></a>
+           </div>
+  <!-- <a href="logout.php">Logout</a> -->
+
+
+
+
+
+<?php
+   }
+   else
+   {
+   ?>
+
+<!-- <body ng-module="myApp" >  -->
+  <!-- REGULAR USER MODE HERE ----------------------------------------------------------------------------------------------------------------->
+  <ul>
+    <li><img class="logo" src="public/images/logo.png"></li>
+    <li ng-class="disabled" id="nav"><a href="#!home">Home</a></li>
+    <li ng-class="disabled" id="nav"><a href="#!about">About us </a></li>
+    <li class="enabled" id="nav"><a href="#!contact">Contact us</a></li>
+    <!-- <li><a href="#!signUp">Sign Up</a></li>
+    <li><a href="#">Sign-in</i></a></li> -->
+    <li class="enabled" id="nav"><a href="#!review">Reviews</a></li>
+    <li class="enabled" id="nav">
+      <div class="dropdown">
+        <button class="btn btn-secondary text-center shadow-none" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+            Types of services
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item submenudrop" id="submenudrop"> Shopping <i class="fa-solid fa-arrow-down"></i></i></a>
+          <div class = "submenu" style="display: none">
+            <a class="dropdown-item" href="#!/shop/all"><i class="fa-solid fa-circle-arrow-right"></i> All Products </a>
+            <a class="dropdown-item" href="#!/shop/phones"><i class="fa-solid fa-circle-arrow-right"></i> All Phones </a>
+            <a class="dropdown-item" href="#!/shop/apple"><i class="fa-solid fa-circle-arrow-right"></i> Apple Phones </a>
+            <a class="dropdown-item" href="#!/shop/samsung"><i class="fa-solid fa-circle-arrow-right"></i> Samsung Phones </a>
+            <a class="dropdown-item" href="#!/shop/accessories"><i class="fa-solid fa-circle-arrow-right"></i> Browse Accessories </a>
+          </div>
+          <a class="dropdown-item" href="locations.php">Delivery</a>
+        </div>
+      </div>
+    </li>
+    <li  class="enabled" id="nav"><a href="#!cart">Shopping Cart</a></li>
+    <li><a href="logout.php" style="background-color: #A10500;">Logout</i></a></li>
   </ul>
 
-  
+  <p id="saleTimer" style="font-weight: bold; border-style: solid; border-color:gold; color:red; text-align:center; text-shadow: black 0px 0px 2px;"></p>  
 <div ng-view>
   
 </div>
@@ -142,7 +211,7 @@ session_start();
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY372hbYFoJP7f_HVnz0n0rmLOk19X3jw&"></script>
 
-    <a href="logout.php">Logout</a>
+    <!-- <a href="logout.php">Logout</a> -->
  
    <?php
    }
@@ -151,6 +220,43 @@ session_start();
   </div>
  </body>
 </html>
+
+<script>
+
+var today = new Date();
+today.setHours(today.getHours() + 1);
+
+// Set the date we're counting down to
+var countDownDate = new Date(today).getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  //var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("saleTimer").innerHTML = "Sale ends in: " + hours + "h "
+  + minutes + "m " + seconds + "s !!";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("saleTimer").innerHTML = "EXPIRED";
+  }
+}, 1000);
+
+</script>
+
 
 <script>
 var app = angular.module('login_register_app', ['ngRoute']);
@@ -202,7 +308,6 @@ app.controller('login_register_controller', function($scope, $http){
   }).then(function(data){
    if(data.data.error != '')
    {
- 
     $scope.alertMsg = true;
     $scope.alertClass = 'alert-danger';
     $scope.alertMessage = data.data.error;
@@ -224,15 +329,15 @@ app.config(function($routeProvider) {
     })
     .when("/about", {
         templateUrl : "views/about.html",
-        controller : "londonCtrl"
+        controller : "aboutCtrl"
     })
     .when("/contact", {
         templateUrl : "views/contact.html",
-        controller : "londonCtrl"
+        controller : "contactCtrl"
     })
     .when("/signUp", {
         templateUrl : "views/signUp.html",
-        controller : "londonCtrl"
+        controller : ""
     })
     .when("/review", {
         templateUrl : "views/review.html",
@@ -393,9 +498,15 @@ app.controller("londonCtrl", function ($scope) {
     $scope.msg = "I love Paris";
 });
 
+app.controller("homeCtrl", function ($scope) {
+    
+});
+
 app.controller("signInCtrl", function ($scope) {
   //if reply from signIn.php is "PASS" then change the class of li items to enabled int he body ng-app
     document.getElementById("nav").className = "enabled";
+    
+
   });
 
 
@@ -406,7 +517,27 @@ app.controller("signIn", function ($scope) {
     }
 });
 app.controller("shopController", function($scope, $routeParams){
-console.log($routeParams.id);
+  console.log($routeParams.id);
+
+  $scope.loaded = () => {
+      
+    }
+    $scope.filter = filter_data();
+
+    function filter_data(){
+        $('.filter_data').html('<div id="loading" style=""></div>');
+        var action = 'fetch_data';
+        var type = get_filter();
+        $.ajax({
+          url:"fetch_data.php",
+          method:"POST",
+          data:{action: action, type: type},
+          success: function(data){
+            // console.log(data);
+            $('.filter_data').html(data);
+          }
+        });
+      };
 });
 
 </script>

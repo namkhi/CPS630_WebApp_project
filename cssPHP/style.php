@@ -1,42 +1,17 @@
-body{
+<?php 
+header("Content-type: text/css");
+?>
+body {
     font-family: "open-sans", sans-serif;
     background-color: rgb(65, 103, 206,0.3);
-}
-
-input, textarea {
-    width: 100%; 
-    padding: 12px; 
-    border: 1px solid #ccc; 
-    border-radius: 20px; 
-    box-sizing: border-box;
-    margin-top: 6px;
-    margin-bottom: 16px;
-    resize: vertical;
-    background-color: rgba(0, 255, 174, 0.541);
-  }
-   
-  /* Add a background color and some padding around the form */
-  .container{
-    border-radius: 20px;
-    background-color: rgb(65, 103, 206);
-    padding: 20px;
-    position:relative;
-    display: block;
     margin-top: 100px;
-
-  }
-  label{
-      color:white;
-  }
-  
-  .logo{
+}
+.logo{
     width: 100%;
     height: 100%;
     max-width: 100%;
 }
-
-
-/* ul{
+ul{
     max-height: 7vh;
     list-style-type: none;
     margin: 0;
@@ -48,7 +23,7 @@ input, textarea {
     width: 100%;
     display: flex;
     border: 1px solid white;
-} */
+}
  
 #dropdownMenuButton{
     max-height: 7vh;
@@ -100,9 +75,8 @@ li a {
     height: 100%;
     text-decoration: none;
 }
-
+  
   /* Change the link color to #111 (black) on hover */
-
   li a:hover {
     background-color: rgb(13, 56, 148);
   }
@@ -138,7 +112,7 @@ li a {
     font-size: 0.9rem;
 }
 .product-container{
-    width:95%;
+    width:90%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -254,38 +228,13 @@ height: 150px;
 margin-bottom: 10px;
 }
 
-.rate {
-    float: right;
-    height: 46px;
-    padding: 0 10px;
+.disabled {
+    pointer-events:none; 
+    opacity:0.6;
+    text-decoration: line-through;  
 }
-.rate:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
-}
-.rate:not(:checked) > label {
-    float:right;
-    width:1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:30px;
-    color:#ccc;
-}
-.rate:not(:checked) > label:before {
-    content: '★ ';
-}
-.rate > input:checked ~ label {
-    color: #ffc700;    
-}
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
-    color: #deb217;  
-}
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
-    color: #c59b08;
+
+.enabled {
+    pointer-events: auto;
+    opacity: 1;
 }
