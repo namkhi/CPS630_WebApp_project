@@ -23,8 +23,8 @@ input, textarea {
     position:relative;
     display: block;
     margin-top: 100px;
-
   }
+  
   label{
       color:white;
   }
@@ -36,7 +36,7 @@ input, textarea {
 }
 
 
-/* ul{
+ul{
     max-height: 7vh;
     list-style-type: none;
     margin: 0;
@@ -48,7 +48,7 @@ input, textarea {
     width: 100%;
     display: flex;
     border: 1px solid white;
-} */
+}
  
 #dropdownMenuButton{
     max-height: 7vh;

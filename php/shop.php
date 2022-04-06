@@ -25,32 +25,33 @@
       const urlObject = new URL(document.location.href);
       const params = urlObject.searchParams;
       const filter = params.get("id");
+      console.log(filter);
 
     $(document).ready(function(){
 
-      function filter_data(){
-        $('.filter_data').html('<div id="loading" style=""></div>');
-        var action = 'fetch_data';
-        var type = get_filter();
-        $.ajax({
-          url:"fetch_data.php",
-          method:"POST",
-          data:{action: action, type: type},
-          success: function(data){
-            // console.log(data);
-            $('.filter_data').html(data);
-          }
-        });
-      }
+      // function filter_data(){
+      //   $('.filter_data').html('<div id="loading" style=""></div>');
+      //   var action = 'fetch_data';
+      //   var type = get_filter();
+      //   $.ajax({
+      //     url:"../php/fetch_data.php",
+      //     method:"POST",
+      //     data:{action: action, type: type},
+      //     success: function(data){
+      //       // console.log(data);
+      //       $('.filter_data').html(data);
+      //     }
+      //   });
+      // }
 
-      function get_filter(){
-        var filter = [];
-        $('.checkbox:checked').each(function(){
-          filter.push($(this).attr("id"));
-        });
-        console.log(filter);
-        return filter;
-      }
+      // function get_filter(){
+      //   var filter = [];
+      //   $('.checkbox:checked').each(function(){
+      //     filter.push($(this).attr("id"));
+      //   });
+      //   console.log(filter);
+      //   return filter;
+      // }
 
       $('.checkbox').click(function(){
         filter_data();
@@ -77,7 +78,6 @@
       }
       else if (filter === "phones"){
         
-      
         $.ajax({
           url:"fetch_data_onlanding.php",
           method:"POST",
@@ -113,7 +113,7 @@
 
 
   
-    <div class="container-fluid gx-2">
+    <div class="container-fluid gx-2"  ng-controller="shopController">
       
       <div class="row">
         
@@ -137,7 +137,7 @@
           <br>
           <p style="display: inline-block"> <u>Total price:</u> </p>
           <mark><p class="total" style="display: inline-block">00.00</p></mark>
-          <button class="clearCart" onclick=clearCart() >Clear Cart  <i class="fa-solid fa-trash-can"></i></button>
+          <button class="clearCart" ng-click="clearCart()" >Clear Cart  <i class="fa-solid fa-trash-can"></i></button>
           <h3 style="text-align:center;"><i class="fa-solid fa-cart-arrow-down"></i> Drop below <i class="fa-solid fa-cart-arrow-down"></i></h3>
           <div class="cart droptarget" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: 1px solid black; min-height: 50%;">
           </div>

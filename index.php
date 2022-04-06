@@ -335,10 +335,6 @@ app.config(function($routeProvider) {
         templateUrl : "views/contact.html",
         controller : "contactCtrl"
     })
-    .when("/signUp", {
-        templateUrl : "views/signUp.html",
-        controller : ""
-    })
     .when("/review", {
         templateUrl : "views/review.html",
         controller : "londonCtrl"
@@ -497,7 +493,9 @@ app.controller('cartCtrl', ['$scope', function($scope) {
 app.controller("londonCtrl", function ($scope) {
     $scope.msg = "I love Paris";
 });
-
+app.controller("contactCtrl", function ($scope) {
+    
+  });
 app.controller("homeCtrl", function ($scope) {
     
 });
@@ -517,19 +515,14 @@ app.controller("signIn", function ($scope) {
     }
 });
 app.controller("shopController", function($scope, $routeParams){
-  console.log($routeParams.id);
-
-  $scope.loaded = () => {
-      
-    }
-    $scope.filter = filter_data();
+  var filter = $routeParams.id;
 
     function filter_data(){
         $('.filter_data').html('<div id="loading" style=""></div>');
         var action = 'fetch_data';
         var type = get_filter();
         $.ajax({
-          url:"fetch_data.php",
+          url:"../php/fetch_data.php",
           method:"POST",
           data:{action: action, type: type},
           success: function(data){
@@ -538,6 +531,108 @@ app.controller("shopController", function($scope, $routeParams){
           }
         });
       };
+
+      function get_filter(){
+        var filter = [];
+        $('.checkbox:checked').each(function(){
+          filter.push($(this).attr("id"));
+        });
+        console.log(filter);
+        return filter;
+      };
+
+    $('.checkbox').click(function(){
+        filter_data();
+      });
+      const checkboxes = document.querySelectorAll(".checkbox")
+      if (filter == "all"){
+        filter_data();
+      }
+      else if (filter === "apple"){
+      checkboxes.forEach(element => { 
+        if(element.id === "apple"){
+            element.checked = true;
+          };
+          filter_data();
+        });
+      }
+      else if( filter === "samsung"){
+        checkboxes.forEach(element => { 
+        if(element.id === "samsung"){
+            element.checked = true;
+          };
+          filter_data();
+        });
+      }
+      else if (filter === "phones"){
+        
+        $.ajax({
+          url:"php/fetch_data_onlanding.php",
+          method:"POST",
+          data:{action: "fetch_data", type: "accessories"},
+          success: function(data){
+            // console.log(data);
+            $('.filter_data').html(data);
+          }
+        });
+      }
+      else if( filter === "accessories"){
+        const checkboxes = document.querySelectorAll(".checkbox")
+        checkboxes.forEach(element => { 
+          if(element.id === "accessories"){
+            element.checked = true;
+          }
+        });
+        filter_data();
+      }
+
+    function updateTotal(){
+      var prices = localStorage.getItem("prices");
+      var total = 0;
+      prices = prices.split(",");
+      prices.forEach(element => {
+          total = total + parseInt(element);
+      });
+      console.log(total);
+      document.querySelector(".total").innerHTML = "$" + total;
+    }
+
+    function loadDetails(){
+      updateTotal();
+      var panelData = document.querySelector(".cart");
+
+      var items = localStorage.getItem("items");
+      items = items.split(",");
+      var prices = localStorage.getItem("prices");
+      prices = prices.split(",");
+
+      for(var i = 0; i < prices.length; i++){
+          const data = panelData.innerHTML + `<h2 id=${items[i]}> ${items[i]} </h2>`;
+          panelData.innerHTML = data + `Price: $${prices[i]}`;
+        }
+
+    $scope.cleartCart = () => {
+      localStorage.removeItem("items");
+      localStorage.removeItem("prices");
+      localStorage.clear();
+      document.querySelector(".cart").innerHTML = "";
+      document.querySelector(".total").innerHTML = "00.00"
+      total = 0;
+      items = [];
+      prices = [];
+
+    }
+
+    $scope.clearFilters = () => {
+      console.log("clicked");
+        buttons = document.querySelectorAll(".checkbox");
+
+        buttons.forEach(element =>
+          element.checked = false);
+          filter_data();
+    }
+}
+
 });
 
 </script>
