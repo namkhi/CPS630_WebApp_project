@@ -12,6 +12,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
     <script src="https://kit.fontawesome.com/d05f99dbac.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -259,7 +260,7 @@ var x = setInterval(function() {
 
 
 <script>
-var app = angular.module('login_register_app', ['ngRoute']);
+var app = angular.module('login_register_app', ['ngRoute','ngSanitize']);
 app.controller('login_register_controller', function($scope, $http){
  $scope.closeMsg = function(){
   $scope.alertMsg = false;
@@ -545,20 +546,10 @@ app.controller("signIn", function ($scope) {
         console.log("Hello we pressed sign in");
     }
 });
-app.directive('items', function(){
-  return {
-    template:"",
-    link: function(scope){
-      scope.directiveCtrlCalled = false;
-      angular.extend(scope.options, {
-        directiveFunction: function(){
-          scope.directiveCtrlCalled = true;    
-        }
-      });
-    }
-  }
-});
-app.controller("shopController", function($scope, $routeParams, $sce){
+
+
+
+app.controller("shopController", ['$scope', '$compile', function($scope, $routeParams, $sce, $compile){
   var filter = $routeParams.id;
   $scope.items;
     $scope.filter_data = () => {
@@ -566,13 +557,13 @@ app.controller("shopController", function($scope, $routeParams, $sce){
         var action = 'fetch_data';
         var type = get_filter();
         $.ajax({
-          url:"../php/fetch_data.php",
+          url:"php/fetch_data.php",
           method:"POST",
           data:{action: action, type: type},
           success: function(data){
             // console.log(data);
             // $('.filter_data').html(data);
-            $scope.items = $sce.trustAsHtml(data);
+            $scope.items = data;
           }
         });
       };
@@ -655,7 +646,7 @@ app.controller("shopController", function($scope, $routeParams, $sce){
           const data = panelData.innerHTML + `<h2 id=${items[i]}> ${items[i]} </h2>`;
           panelData.innerHTML = data + `Price: $${prices[i]}`;
         }
-}
+};
 
 $scope.clearCart = () => {
   console.log("inside clear cart");
@@ -687,8 +678,40 @@ $scope.addToCart = () => {
   console.log("inside uss");
 };
 
-});
+}]);
 
+app.directive('items', ['$compile', function ($compile) {
+    return {
+      template: "<div ng-bind-html='items'></div>",
+      restrict: 'E',
+        link: function(scope, element, attrs){
+            console.log('"link" function inside directive vk called, "element" param is: ', element)
+        }
+    };
+ }]);
+
+  // declare a new module, and inject the $compileProvider
+app.directive('compile', ['$compile', function ($compile) {
+      return function(scope, element, attrs) {
+          scope.$watch(
+            function(scope) {
+               // watch the 'compile' expression for changes
+              return scope.$eval(attrs.compile);
+            },
+            function(value) {
+              // when the 'compile' expression changes
+              // assign it into the current DOM
+              element.html(value);
+
+              // compile the new DOM and link it to the current
+              // scope.
+              // NOTE: we only compile .childNodes so that
+              // we don't get into infinite loop compiling ourselves
+              $compile(element.contents())(scope);
+            }
+        );
+    };
+}]);
 </script>
 <script>
     $(function(){

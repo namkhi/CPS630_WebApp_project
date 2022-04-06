@@ -25,7 +25,7 @@ if(isset($_POST["action"])){
         while($row = $result->fetch_assoc())
         {
             $output .= '
-            <div class="card apple phones"  id="'.$row["item_name"].'" style="width: 18rem;">
+            <div class="card apple phones id="'.$row["item_name"].'" style="width: 18rem;">
                 <img src="'.$row['item_image'].'" draggable="false" class="card-img-top" alt="..." style="  object-fit: cover; object-position: 0 -20%;">
             <div class="card-body">
               <h5 class="card-title">'.$row["item_name"].'</h5>

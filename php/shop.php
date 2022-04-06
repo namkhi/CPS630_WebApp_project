@@ -13,7 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="icon" href="public/favicon.ico" sizes="any">
     <script src="https://kit.fontawesome.com/d05f99dbac.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../css/shopStyle.css">
+    <link rel="stylesheet" href="css/shopStyle.css">
     <!-- <script src="shop.js" type="module"></script> -->
     <script src="../js/draggable.js"></script>
     <title>Shop</title>
@@ -139,28 +139,15 @@
           <mark><p class="total" style="display: inline-block">00.00</p></mark>
           <button class="clearCart" ng-click="clearCart()" >Clear Cart  <i class="fa-solid fa-trash-can"></i></button>
           <div class="cart droptarget" style="border: 1px solid black; min-height: 50%;">
-          <div class="card apple phones"  id="something" style="width: 18rem;">
-                <img src="" draggable="false" class="card-img-top" alt="..." style="  object-fit: cover; object-position: 0 -20%;">
-            <div class="card-body">
-              <h5 class="card-title">some name</h5>
-              <p class="card-text">some description</p>
-
-            </div>
-            <div class="card-footer">
-              <a>Price: $'.$row["price"].'</a>
-              <button class="cartButton btn btn-primary" ng-click="addToCart()" style="border-radius:5px;">Add to Cart</button>
-            </div>
           </div>  
-        </div>
           
         </div>
         
         <div class="productCollection col-8 col-lg-9">
-          <div class="row row-cols-1 row-cols-md-3">
-          <span ng-bind-html="items" ng-init="filter_data()"></span>
+        
+          
+        <div compile="items" ng-init="filter_data()"></div>
 
-
-      </div>
 
       </div>
       </div>
