@@ -146,7 +146,7 @@ session_start();
             <a class="dropdown-item" href="#!/shop/samsung"><i class="fa-solid fa-circle-arrow-right"></i> Samsung Phones </a>
             <a class="dropdown-item" href="#!/shop/accessories"><i class="fa-solid fa-circle-arrow-right"></i> Browse Accessories </a>
           </div>
-          <a class="dropdown-item" href="locations.php">Delivery</a>
+          <a class="dropdown-item" href="#!locations">Delivery</a>
         </div>
       </div>
     </li>
@@ -195,7 +195,7 @@ session_start();
             <a class="dropdown-item" href="#!/shop/samsung"><i class="fa-solid fa-circle-arrow-right"></i> Samsung Phones </a>
             <a class="dropdown-item" href="#!/shop/accessories"><i class="fa-solid fa-circle-arrow-right"></i> Browse Accessories </a>
           </div>
-          <a class="dropdown-item" href="locations.php">Delivery</a>
+          <a class="dropdown-item" href="#!/locations">Delivery</a>
         </div>
       </div>
     </li>
@@ -203,7 +203,7 @@ session_start();
     <li><a href="logout.php" style="background-color: #A10500;">Logout</i></a></li>
   </ul>
 
-  <p id="saleTimer" style="font-weight: bold; border-style: solid; border-color:gold; color:red; text-align:center; text-shadow: black 0px 0px 2px;"></p>  
+  <p id="saleTimer" style="font-weight: bold; border-style: solid; border-color:gold; background-color:gold; color:red; text-align:center; text-shadow: black 0px 0px 2px;"></p>  
 <div ng-view>
   
 </div>
@@ -347,6 +347,11 @@ app.config(function($routeProvider) {
         templateUrl: "php/shop.php",
         controller: "shopController"
     })
+    .when("/locations",{
+        templateUrl: "views/locations.html",
+        controller: "locationsController"
+    })
+    
     .otherwise({redirectTo:'/'});
     
  
@@ -488,6 +493,32 @@ app.controller('cartCtrl', ['$scope', function($scope) {
     //  $scope.initMap();
     //  $scope.calculateAndDisplayRoute();
   }]);
+
+  app.controller('locationsController', ['$scope', function($scope) {
+
+    $scope.initMap = function () {
+    var location = {lat: 43.72538784490703, lng: -79.45216055559094 };
+    var location2 = {lat: 43.65586404205865, lng:  -79.38256298777402};
+    $scope.map = new google.maps.Map(document.getElementById("map"),
+      { zoom: 12, center: location});
+    var marker2 = new google.maps.Marker(
+      {position: location, map: $scope.map});    
+    var infoWindow1 = new google.maps.InfoWindow(
+      { content: 
+        "<h5> Yorkdale Shopping Mall </h5> <p>3401 Dufferin St, Toronto, ON M6A 2T9</p> " 
+    });
+    marker2.addListener("click", function()
+      { infoWindow1.open($scope.map, marker2); });
+    var marker3 = new google.maps.Marker(
+      {position: location2, map: $scope.map});    
+    var infoWindow2 = new google.maps.InfoWindow(
+      { content:   "<h5> Eaton centre </h5> <p>220 Yonge St, Toronto, ON M5B 2H1</p> "});
+    marker2.addListener("click", function()
+      { infoWindow2.open($scope.map, marker3); });
+  }
+  }]);
+
+
 
 
 app.controller("londonCtrl", function ($scope) {
