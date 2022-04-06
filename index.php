@@ -245,7 +245,7 @@ var x = setInterval(function() {
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
   // Display the result in the element with id="demo"
-  document.getElementById("saleTimer").innerHTML = "Sale ends in: " + hours + "h "
+  document.getElementById("saleTimer").innerHTML = "50% off Sale ends in: " + hours + "h "
   + minutes + "m " + seconds + "s !!";
 
   // If the count down is finished, write some text
@@ -336,7 +336,7 @@ app.config(function($routeProvider) {
         controller : "contactCtrl"
     })
     .when("/review", {
-        templateUrl : "views/review.html",
+        templateUrl : "views/review.php",
         controller : "londonCtrl"
     })
     .when("/cart", {
@@ -513,9 +513,10 @@ app.controller('cartCtrl', ['$scope', function($scope) {
       {position: location2, map: $scope.map});    
     var infoWindow2 = new google.maps.InfoWindow(
       { content:   "<h5> Eaton centre </h5> <p>220 Yonge St, Toronto, ON M5B 2H1</p> "});
-    marker2.addListener("click", function()
+    marker3.addListener("click", function()
       { infoWindow2.open($scope.map, marker3); });
   }
+  $scope.initMap();
   }]);
 
 
@@ -535,20 +536,32 @@ app.controller("signInCtrl", function ($scope) {
   //if reply from signIn.php is "PASS" then change the class of li items to enabled int he body ng-app
     document.getElementById("nav").className = "enabled";
     
-
   });
 
 
 app.controller("signIn", function ($scope) {
-    $scope.myTxt = "You hace clicked button";
+    $scope.myTxt = "You have clicked button";
     $scope.signInFunc = () => {
         console.log("Hello we pressed sign in");
     }
 });
-app.controller("shopController", function($scope, $routeParams){
+app.directive('items', function(){
+  return {
+    template:"",
+    link: function(scope){
+      scope.directiveCtrlCalled = false;
+      angular.extend(scope.options, {
+        directiveFunction: function(){
+          scope.directiveCtrlCalled = true;    
+        }
+      });
+    }
+  }
+});
+app.controller("shopController", function($scope, $routeParams, $sce){
   var filter = $routeParams.id;
-
-    function filter_data(){
+  $scope.items;
+    $scope.filter_data = () => {
         $('.filter_data').html('<div id="loading" style=""></div>');
         var action = 'fetch_data';
         var type = get_filter();
@@ -558,7 +571,8 @@ app.controller("shopController", function($scope, $routeParams){
           data:{action: action, type: type},
           success: function(data){
             // console.log(data);
-            $('.filter_data').html(data);
+            // $('.filter_data').html(data);
+            $scope.items = $sce.trustAsHtml(data);
           }
         });
       };
@@ -573,18 +587,18 @@ app.controller("shopController", function($scope, $routeParams){
       };
 
     $('.checkbox').click(function(){
-        filter_data();
+        $scope.filter_data();
       });
       const checkboxes = document.querySelectorAll(".checkbox")
       if (filter == "all"){
-        filter_data();
+        $scope.filter_data();
       }
       else if (filter === "apple"){
       checkboxes.forEach(element => { 
         if(element.id === "apple"){
             element.checked = true;
           };
-          filter_data();
+          $scope.filter_data();
         });
       }
       else if( filter === "samsung"){
@@ -592,7 +606,7 @@ app.controller("shopController", function($scope, $routeParams){
         if(element.id === "samsung"){
             element.checked = true;
           };
-          filter_data();
+          $scope.filter_data();
         });
       }
       else if (filter === "phones"){
@@ -614,7 +628,7 @@ app.controller("shopController", function($scope, $routeParams){
             element.checked = true;
           }
         });
-        filter_data();
+        $scope.filter_data();
       }
 
     function updateTotal(){
@@ -641,8 +655,10 @@ app.controller("shopController", function($scope, $routeParams){
           const data = panelData.innerHTML + `<h2 id=${items[i]}> ${items[i]} </h2>`;
           panelData.innerHTML = data + `Price: $${prices[i]}`;
         }
+}
 
-    $scope.cleartCart = () => {
+$scope.clearCart = () => {
+  console.log("inside clear cart");
       localStorage.removeItem("items");
       localStorage.removeItem("prices");
       localStorage.clear();
@@ -651,18 +667,25 @@ app.controller("shopController", function($scope, $routeParams){
       total = 0;
       items = [];
       prices = [];
+};
 
-    }
+$scope.clearFilters = () => {
+  console.log("clicked");
+    buttons = document.querySelectorAll(".checkbox");
 
-    $scope.clearFilters = () => {
-      console.log("clicked");
-        buttons = document.querySelectorAll(".checkbox");
-
-        buttons.forEach(element =>
-          element.checked = false);
-          filter_data();
-    }
-}
+    buttons.forEach(element =>
+      element.checked = false);
+      $scope.filter_data();
+};
+$scope.loadButtons = () => {
+  var buttons = $(".cartButton");
+  for(values of buttons){
+    buttons.setAttribute("ng-click","addToCart()");
+  }
+};
+$scope.addToCart = () => {
+  console.log("inside uss");
+};
 
 });
 

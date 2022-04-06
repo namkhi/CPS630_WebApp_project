@@ -156,6 +156,6 @@ outline: none;
 
 #loading{
   text-align: center;
-  background: url('public/loader.gif') no-repeat center;
+  background: url('../public/loader.gif') no-repeat center;
   height: 150px;
 }

@@ -53,61 +53,61 @@
       //   return filter;
       // }
 
-      $('.checkbox').click(function(){
-        filter_data();
-      });
-      const checkboxes = document.querySelectorAll(".checkbox")
-      if (filter == "all"){
-        filter_data();
-      }
-      else if (filter === "apple"){
-      checkboxes.forEach(element => { 
-        if(element.id === "apple"){
-            element.checked = true;
-          };
-          filter_data();
-        });
-      }
-      else if( filter === "samsung"){
-        checkboxes.forEach(element => { 
-        if(element.id === "samsung"){
-            element.checked = true;
-          };
-          filter_data();
-        });
-      }
-      else if (filter === "phones"){
+    //   $('.checkbox').click(function(){
+    //     filter_data();
+    //   });
+    //   const checkboxes = document.querySelectorAll(".checkbox")
+    //   if (filter == "all"){
+    //     filter_data();
+    //   }
+    //   else if (filter === "apple"){
+    //   checkboxes.forEach(element => { 
+    //     if(element.id === "apple"){
+    //         element.checked = true;
+    //       };
+    //       filter_data();
+    //     });
+    //   }
+    //   else if( filter === "samsung"){
+    //     checkboxes.forEach(element => { 
+    //     if(element.id === "samsung"){
+    //         element.checked = true;
+    //       };
+    //       filter_data();
+    //     });
+    //   }
+    //   else if (filter === "phones"){
         
-        $.ajax({
-          url:"fetch_data_onlanding.php",
-          method:"POST",
-          data:{action: "fetch_data", type: "accessories"},
-          success: function(data){
-            // console.log(data);
-            $('.filter_data').html(data);
-          }
-        });
-      }
-      else if( filter === "accessories"){
-        const checkboxes = document.querySelectorAll(".checkbox")
-        checkboxes.forEach(element => { 
-          if(element.id === "accessories"){
-            element.checked = true;
-          }
-        });
-        filter_data();
-      }
+    //     $.ajax({
+    //       url:"fetch_data_onlanding.php",
+    //       method:"POST",
+    //       data:{action: "fetch_data", type: "accessories"},
+    //       success: function(data){
+    //         // console.log(data);
+    //         $('.filter_data').html(data);
+    //       }
+    //     });
+    //   }
+    //   else if( filter === "accessories"){
+    //     const checkboxes = document.querySelectorAll(".checkbox")
+    //     checkboxes.forEach(element => { 
+    //       if(element.id === "accessories"){
+    //         element.checked = true;
+    //       }
+    //     });
+    //     filter_data();
+    //   }
 
-      document.querySelector(".clear").addEventListener("click", () => {
-            console.log("clicked");
-            buttons = document.querySelectorAll(".checkbox");
+    //   document.querySelector(".clear").addEventListener("click", () => {
+    //         console.log("clicked");
+    //         buttons = document.querySelectorAll(".checkbox");
 
-            buttons.forEach(element =>
-              element.checked = false);
-              filter_data();
-          });
+    //         buttons.forEach(element =>
+    //           element.checked = false);
+    //           filter_data();
+    //       });
 
-    });
+    // });
 
   </script>
 
@@ -119,7 +119,7 @@
         
         <div class="panel col-4 col-lg-3 droptarget">
           <p class="panelTitle">Filters</p>
-          <button class="clear">Clear</button>
+          <button class="clear" ng-click="clearFilters()">Clear</button>
           <!-- <br>
           <label for="phones">Phones</label>
           <input type="checkbox" class="checkbox" name="phones"> -->
@@ -138,15 +138,26 @@
           <p style="display: inline-block"> <u>Total price:</u> </p>
           <mark><p class="total" style="display: inline-block">00.00</p></mark>
           <button class="clearCart" ng-click="clearCart()" >Clear Cart  <i class="fa-solid fa-trash-can"></i></button>
-          <h3 style="text-align:center;"><i class="fa-solid fa-cart-arrow-down"></i> Drop below <i class="fa-solid fa-cart-arrow-down"></i></h3>
-          <div class="cart droptarget" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: 1px solid black; min-height: 50%;">
-          </div>
+          <div class="cart droptarget" style="border: 1px solid black; min-height: 50%;">
+          <div class="card apple phones"  id="something" style="width: 18rem;">
+                <img src="" draggable="false" class="card-img-top" alt="..." style="  object-fit: cover; object-position: 0 -20%;">
+            <div class="card-body">
+              <h5 class="card-title">some name</h5>
+              <p class="card-text">some description</p>
+
+            </div>
+            <div class="card-footer">
+              <a>Price: $'.$row["price"].'</a>
+              <button class="cartButton btn btn-primary" ng-click="addToCart()" style="border-radius:5px;">Add to Cart</button>
+            </div>
+          </div>  
+        </div>
           
         </div>
         
         <div class="productCollection col-8 col-lg-9">
-          <div class="row row-cols-1 row-cols-md-3 filter_data">
-          
+          <div class="row row-cols-1 row-cols-md-3">
+          <span ng-bind-html="items" ng-init="filter_data()"></span>
 
 
       </div>

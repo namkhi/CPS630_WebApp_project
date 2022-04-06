@@ -2,6 +2,7 @@
 <html lang="en>">
     <head>
         <meta charset="utf-8">
+        <meta http-equiv="refresh" content="20"> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://kit.fontawesome.com/d05f99dbac.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -27,15 +28,20 @@
 
     <body>
         <div class="container">
-            <form action="/action_page.php">
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                 <div>
                     <label for="product">Product:</label>
-                    <select name="product" id="cars">
-                    <option value="phone1">phone1</option>
-                    <option value="phone2">phone2</option>
-                    <option value="phone3">phone3</option>
-                    <option value="phone4">phone4</option>
-                    </select>
+                    <select name="product">
+                    <option value="iPhone13Pro">iPhone 13 Pro</option>
+                    <option value="iPhone13">iPhone 13</option>
+                    <option value="iPhoneSE">iPhone SE</option>
+                    <option value="GalaxyS22Ultra">Galaxy S22 Ultra</option>
+                    <option value="GalaxyS22">Galaxy S22</option>
+                    <option value="GalaxyZFlip35G">Galaxy Z Flip3 5G</option>
+                    <option value="MagSafeCharger">MagSafe Charger</option>
+                    <option value="SamsungGalaxySmartTag">Samsung Galaxy SmartTag</option>
+                    <option value="BelkinBOOSTCharger">Belkin BOOST Charger</option>
+                    </select> 
                     <div class="rate">
                         <input type="radio" id="star5" name="rate" value="5" />
                         <label for="star5" title="text">5 stars</label>
@@ -49,8 +55,9 @@
                         <label for="star1" title="text">1 star</label>
                     </div>
                 </div>
-                <textarea style="height:200px;" id="reveiw" name="review" placeholder="How was your experience with the product?"></textarea>
-                <a class="btn btn-secondary" style="display:block; margin-left: auto; margin-right: auto; border-radius:20px; color:black;" href="index.html" role="button">Submit</a>
+                <textarea style="height:200px;" id="review" name="review" placeholder="How was your experience with the product?"></textarea>
+                <button  onClick="window.location.reload();" class="btn btn-secondary" style="display:block; margin-left: auto; margin-right: auto; border-radius:20px; color:black;" role="button" type="submit">Submit</button>
+                <input type="submit"/>
             </form>
         </div>
     </body>
