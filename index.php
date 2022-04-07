@@ -614,6 +614,8 @@ app.controller("signIn", function ($scope) {
 
 
 
+
+ 
 app.controller("shopController", ['$scope', '$compile', function($scope, $routeParams, $sce, $compile){
   var filter = $routeParams.id;
   $scope.items;
@@ -726,7 +728,7 @@ $scope.clearCart = () => {
 };
 
 $scope.clearFilters = () => {
-  console.log("clicked");
+  console.log("clicked cleared filters");
     buttons = document.querySelectorAll(".checkbox");
 
     buttons.forEach(element =>
@@ -740,33 +742,28 @@ $scope.loadButtons = () => {
   }
 };
 $scope.addToCart = () => {
-  console.log("inside uss");
+  console.log("inside add to cart");
 };
 
 }]);
 
-app.directive('items', ['$compile', function ($compile) {
-    return {
-      template: "<div ng-bind-html='items'></div>",
-      restrict: 'E',
-        link: function(scope, element, attrs){
-            console.log('"link" function inside directive vk called, "element" param is: ', element)
-        }
-    };
- }]);
-
-  // declare a new module, and inject the $compileProvider
-app.directive('compile', ['$compile', function ($compile) {
+ // declare a new module, and inject the $compileProvider
+ app.directive('compile', ['$compile', function ($compile, $scope) {
       return function(scope, element, attrs) {
           scope.$watch(
-            function(scope) {
-               // watch the 'compile' expression for changes
-              return scope.$eval(attrs.compile);
-            },
+            // function(scope) {
+            //    // watch the 'compile' expression for changes
+            //   return scope.$evalAsync(attrs.compile);
+            'items'
+            // }
+            ,
             function(value) {
+              
+              console.log(scope.items);
+
               // when the 'compile' expression changes
               // assign it into the current DOM
-              element.html(value);
+              element.html(scope.items);
 
               // compile the new DOM and link it to the current
               // scope.
@@ -777,6 +774,17 @@ app.directive('compile', ['$compile', function ($compile) {
         );
     };
 }]);
+
+app.directive('items', ['$compile', function ($compile, $scope) {
+    return {
+      template: "<div ng-bind-html='items'></div>",
+      restrict: 'E',
+        link: function(scope, element, attrs){
+            console.log('"link" function inside directive vk called, "element" param is: ', element)
+        },
+    };
+ }]);
+
 </script>
 <script>
     $(function(){

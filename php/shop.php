@@ -18,102 +18,9 @@
     <script src="../js/draggable.js"></script>
     <title>Shop</title>
   </head>
-  <body onload="loadDetails()">
-  
-  <script>
+  <body ng-controller="shopController">
 
-      const urlObject = new URL(document.location.href);
-      const params = urlObject.searchParams;
-      const filter = params.get("id");
-      console.log(filter);
-
-    $(document).ready(function(){
-
-      // function filter_data(){
-      //   $('.filter_data').html('<div id="loading" style=""></div>');
-      //   var action = 'fetch_data';
-      //   var type = get_filter();
-      //   $.ajax({
-      //     url:"../php/fetch_data.php",
-      //     method:"POST",
-      //     data:{action: action, type: type},
-      //     success: function(data){
-      //       // console.log(data);
-      //       $('.filter_data').html(data);
-      //     }
-      //   });
-      // }
-
-      // function get_filter(){
-      //   var filter = [];
-      //   $('.checkbox:checked').each(function(){
-      //     filter.push($(this).attr("id"));
-      //   });
-      //   console.log(filter);
-      //   return filter;
-      // }
-
-    //   $('.checkbox').click(function(){
-    //     filter_data();
-    //   });
-    //   const checkboxes = document.querySelectorAll(".checkbox")
-    //   if (filter == "all"){
-    //     filter_data();
-    //   }
-    //   else if (filter === "apple"){
-    //   checkboxes.forEach(element => { 
-    //     if(element.id === "apple"){
-    //         element.checked = true;
-    //       };
-    //       filter_data();
-    //     });
-    //   }
-    //   else if( filter === "samsung"){
-    //     checkboxes.forEach(element => { 
-    //     if(element.id === "samsung"){
-    //         element.checked = true;
-    //       };
-    //       filter_data();
-    //     });
-    //   }
-    //   else if (filter === "phones"){
-        
-    //     $.ajax({
-    //       url:"fetch_data_onlanding.php",
-    //       method:"POST",
-    //       data:{action: "fetch_data", type: "accessories"},
-    //       success: function(data){
-    //         // console.log(data);
-    //         $('.filter_data').html(data);
-    //       }
-    //     });
-    //   }
-    //   else if( filter === "accessories"){
-    //     const checkboxes = document.querySelectorAll(".checkbox")
-    //     checkboxes.forEach(element => { 
-    //       if(element.id === "accessories"){
-    //         element.checked = true;
-    //       }
-    //     });
-    //     filter_data();
-    //   }
-
-    //   document.querySelector(".clear").addEventListener("click", () => {
-    //         console.log("clicked");
-    //         buttons = document.querySelectorAll(".checkbox");
-
-    //         buttons.forEach(element =>
-    //           element.checked = false);
-    //           filter_data();
-    //       });
-
-    // });
-
-  </script>
-
-
-  
-    <div class="container-fluid gx-2"  ng-controller="shopController">
+    <div class="container-fluid gx-2" ng-init="filter_data()" >
       
       <div class="row">
         
@@ -125,13 +32,13 @@
           <input type="checkbox" class="checkbox" name="phones"> -->
           <br>
           <label for="apple">Apple:</label>
-          <input type="checkbox" class="checkbox" name="pick" id="apple">
+          <input ng-click="filter_data()" type="checkbox" class="checkbox" name="pick" id="apple">
           <br>
           <label for="samsung">Samsung:</label>
-          <input type="checkbox" class="checkbox" name="pick" id="samsung">        
+          <input ng-click="filter_data()" type="checkbox" class="checkbox" name="pick" id="samsung">        
           <br>
           <label for="accessories">Accessories:</label>  
-          <input type="checkbox" class="checkbox" name="pick" id="accessories">
+          <input ng-click="filter_data()" type="checkbox" class="checkbox" name="pick" id="accessories">
           <br>
           <a href="cart.php"><button class="checkout" style="background-color: aqua; width: 100%; height: 10vh;">Checkout  <i class="fa-solid fa-basket-shopping"></i></button></a>
           <br>
@@ -140,13 +47,14 @@
           <button class="clearCart" ng-click="clearCart()" >Clear Cart  <i class="fa-solid fa-trash-can"></i></button>
           <div class="cart droptarget" style="border: 1px solid black; min-height: 50%;">
           </div>  
+
           
         </div>
         
         <div class="productCollection col-8 col-lg-9">
         
           
-        <div compile="items" ng-init="filter_data()"></div>
+        <div class='row row-cols-1 row-cols-md-3' compile="items"></div>
 
 
       </div>
