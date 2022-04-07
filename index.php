@@ -122,48 +122,19 @@ session_start();
    else if($_SESSION["name"] == "admin") {
      ?>
 
-
 <!-- ADMIN MODE HERE -->
-  
+<script type="text/javascript">
+  function load()
+  {
+    window.open('http://localhost/phpmyadmin/index.php?route=/database/structure&db=assignment1','_blank');
+  }
+  load()
+</script>
+
 <ul>
-    <li><img class="logo" src="public/images/logo.png"></li>
-    <li ng-class="disabled" id="nav"><a href="#!home">ADMIN</a></li>
-    <li ng-class="disabled" id="nav"><a href="#!about">About us </a></li>
-    <li class="enabled" id="nav"><a href="#!contact">Contact us</a></li>
-    <!-- <li><a href="#!signUp">Sign Up</a></li>
-    <li><a href="#">Sign-in</i></a></li> -->
-    <li class="enabled" id="nav"><a href="#!review">Reviews</a></li>
-    <li class="enabled" id="nav">
-      <div class="dropdown">
-        <button class="btn btn-secondary text-center shadow-none" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-            Types of services
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item submenudrop" id="submenudrop"> Shopping <i class="fa-solid fa-arrow-down"></i></i></a>
-          <div class = "submenu" style="display: none">
-            <a class="dropdown-item" href="#!/shop/all"><i class="fa-solid fa-circle-arrow-right"></i> All Products </a>
-            <a class="dropdown-item" href="#!/shop/phones"><i class="fa-solid fa-circle-arrow-right"></i> All Phones </a>
-            <a class="dropdown-item" href="#!/shop/apple"><i class="fa-solid fa-circle-arrow-right"></i> Apple Phones </a>
-            <a class="dropdown-item" href="#!/shop/samsung"><i class="fa-solid fa-circle-arrow-right"></i> Samsung Phones </a>
-            <a class="dropdown-item" href="#!/shop/accessories"><i class="fa-solid fa-circle-arrow-right"></i> Browse Accessories </a>
-          </div>
-          <a class="dropdown-item" href="#!locations">Delivery</a>
-        </div>
-      </div>
-    </li>
-    <li  class="enabled" id="nav"><a href="#!cart">Shopping Cart</a></li>
-    <li style="background-color:rgb(255,255,10);"><a href="logout.php">Logout</i></a></li>
-  </ul>
-  <div style="display: flex; justify-content: center; align-items: center;">
-           <a href="dbOperations/insert.php"> <button type="button" style="display:inline-block;">Insert Data</button></a>
-            <a href="dbOperations/select.php"> <button type="button" style="display:inline-block;">Select Data</button></a>
-            <a href="dbOperations/update.php"> <button type="button" style="display:inline-block;">Update Data</button></a>
-            <a href="dbOperations/delete.php"> <button type="button" style="display:inline-block;">Delete Data</button></a>
-           </div>
-  <!-- <a href="logout.php">Logout</a> -->
-
-
-
+    <li style="background-color: #A10500;"><a href="logout.php">Logout</i></a></li>
+</ul>
+<h1 style="text-align:center"><mark>Administrator Mode!</mark></h1>
 
 
 <?php
