@@ -602,6 +602,7 @@ app.controller("shopController", ['$scope', '$compile', function($scope, $routeP
             // console.log(data);
             // $('.filter_data').html(data);
             $scope.items = data;
+            $scope.$apply();
           }
         });
       };
@@ -741,6 +742,7 @@ $scope.addToCart = () => {
               // NOTE: we only compile .childNodes so that
               // we don't get into infinite loop compiling ourselves
               $compile(element.contents())(scope);
+              
             }
         );
     };
