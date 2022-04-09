@@ -34,7 +34,7 @@ if(isset($_POST["action"])){
             </div>
             <div class="card-footer">
               <a>Price: $'.$row["price"].'</a>
-              <button class="cartButton" ng-click="addToCart()" style="border-radius:5px; background-color:white;">Add to Cart</button>
+              <button class="cartButton" ng-click="addToCart(&#39;'.$row["item_name"].'&#39;,&#39;'.$row["price"].'&#39;)" style="border-radius:5px; background-color:white;">Add to Cart</button>
             </div>
           </div>
             ';
