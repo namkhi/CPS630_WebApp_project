@@ -717,23 +717,70 @@ $scope.loadButtons = () => {
     buttons.setAttribute("ng-click","addToCart()");
   }
 };
-$scope.addToCart = () => {
+$scope.addToCart = (name,price) => {
+
+  var items = localStorage.getItem("items");
+  items = items ? items.split(",") : [];
+  var prices = localStorage.getItem("prices");
+  prices = prices ? prices.split(",") : [];
+
   console.log("inside add to cart");
-  panelData = panelData.innerHTML + `<h2 id=${document.getElementById(data)}> ${data} </h2>`;
-    var price = document.querySelector('[id="'+ data +'"] .card-footer a').innerHTML;
-    event.target.innerHTML = panelData + price;
-    var name = price.substring();
-    price = price.substring(price.indexOf('$') + 1);
+  console.log(name,price);
+    $scope.item_name = name;
+    $scope.item_price = price;
+  // const data = event.dataTransfer.getData("Id"); // id=iphone13pro
+    // console.log(document.getElementById(data));
+    // var panelData = document.querySelector(".cart");
+
+    // panelData = panelData.innerHTML + `<h2 id=${document.getElementById(data)}> ${data} </h2>`;
+    // var price = document.querySelector('[id="'+ data +'"] .card-footer a').innerHTML;
+    // event.target.innerHTML = panelData + price;
+    // var name = price.substring();
+    // price = price.substring(price.indexOf('$') + 1);
 
     // total = total + parseInt(price);
 
-    items.push([data]);
+    items.push([name]);
     prices.push(price);
-
+    
     localStorage.setItem("items", items);
     localStorage.setItem("prices", prices);
-    updateTotal();
+    $scope.loadDetails();
 };
+
+function updateTotal(prices){
+    console.log("inside of total update");
+    // var prices = localStorage.getItem("prices");
+    var total = 0;
+    // prices = prices.split(",");
+    prices.forEach(element => {
+        total = total + parseInt(element);
+    });
+    console.log(total);
+    document.querySelector(".total").innerHTML = "$" + total;
+}
+
+$scope.loadDetails = () => {
+    var items = localStorage.getItem("items");
+    items = items ? items.split(",") : [];
+    var prices = localStorage.getItem("prices");
+    prices = prices ? prices.split(",") : [];
+
+    updateTotal(prices);
+    var panelData = document.querySelector(".cart");
+
+    // var items = localStorage.getItem("items");
+    // items = items.split(",");
+    // var prices = localStorage.getItem("prices");
+    // prices = prices.split(",");
+    var data = ""
+    for(var i = 0; i < prices.length; i++){
+        data += `<h2 id=${items[i]}> ${items[i]} </h2> 
+        Price: $${prices[i]}`;
+        
+    }
+    panelData.innerHTML = data ;
+}
 
 }]);
 
