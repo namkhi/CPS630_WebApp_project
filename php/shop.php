@@ -20,7 +20,7 @@
   </head>
   <body ng-controller="shopController">
 
-    <div class="container-fluid gx-2" ng-init="filter_data();loadDetails();" >
+    <div class="container-fluid gx-2" ng-init="ONfilter_data();loadDetails();" >
       
       <div class="row">
         

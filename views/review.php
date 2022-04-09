@@ -64,13 +64,14 @@
         </div>
         </div> -->
 <div class="container" style="width:750px;">
-    <h3 align="center">AngularJS PHP Mysql Submit Form Data</h3>
+    <h3 align="center">Reviews</h3>
     <br /><br />
     <div ng-app="myapp" ng-controller="formcontroller">
     <form name="userForm" ng-submit="reviewSubmitData()">
         <!-- <label class="text-success" ng-show="successreviewSubmitData">{{successreviewSubmitData}}</label> -->
         <div class="form-group">
         <label for="product">Product:</label>
+        
         <!-- <input type="text" name="first_name" ng-model="reviewSubmitData.first_name" class="form-control" /> -->
                     <select ng-model=reviewSubmit.product name="product">
                     <option value="iPhone13Pro">iPhone 13 Pro</option>
@@ -151,6 +152,19 @@ application.controller("formcontroller", function($scope, $http){
     }
 });
 </script> -->
+<h3>Filter </h3>
+<div class="filter">
+    <input type="radio" id="star5" ng-model="reviewSubmit.rate"  name="rate" ng-value="5" />
+    <label for="star5" title="text">5 stars</label>
+    <input type="radio" id="star4" ng-model="reviewSubmit.rate"  name="rate" ng-value="4" />
+    <label for="star4" title="text">4 stars</label>
+    <input type="radio" id="star3" ng-model="reviewSubmit.rate"  name="rate" ng-value="3" />
+    <label for="star3" title="text">3 stars</label>
+    <input type="radio" id="star2" ng-model="reviewSubmit.rate"  name="rate" ng-value="2" />
+    <label for="star2" title="text">2 stars</label>
+    <input type="radio" id="star1" ng-model="reviewSubmit.rate"  name="rate" ng-value="1" />
+    <label for="star1" title="text">1 star</label>
+</div>
 
 <?php 
     if (isset($_POST["product"]) &&  isset($_POST["rate"]) && isset($_POST["review"])){

@@ -4,6 +4,7 @@
 <head>
 
   <meta charset="UTF-8">
+  <!-- <meta http-equiv="refresh" content="10"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://kit.fontawesome.com/d05f99dbac.js" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -18,12 +19,28 @@
   <title>Payment</title>
 </head>
 
-<body>
+<body ng-controller="paymentController">
  
-    <div class="container">
-
+    <div class="container" ng-init="load_details() ">
+    <h1 style="color:rgb(75, 75, 75); text-align:center;"><u>Invoice</u></h1>  
+    <div style="background-color:white; padding:0.8rem;">
+        <div style="font-weight:bold;" class="item_details">
+          <p>Name: {{name}} </p>
+          <p>Source: {{source}}</p>
+          <p>Destination: {{destination}}</p>
+          <p>Distance: {{distance}}</p>
+          <h4>Cart:</h4>
+          
+          <ol ng-repeat="item in data"> {{item}} </ol>
+         
+          <p style={{stylestrike}}>Total: {{total}}</p>
+          
+          <p style={{saleVisibility}}>Discounted Price - 50% OFF APPLIED: {{discountprice}}</p>
+        </div>
+      </div> 
       <h1 style="color:rgb(75, 75, 75); text-align:center;">Payment Details</h1>
-      <form action="php/paymentBackend.php" method="post">
+      <div ng-app="myapp" ng-controller="paymentBackEndController">
+      <form ng-submit="paymentBackEnd()" name="paymentForm">
         <!-- <div class="row align-items-start">
             <div class="col">
                 <label for="fname">Full Name</label>
@@ -42,9 +59,7 @@
                 <label for="postal">Postal Code</label>
                 <input type="text" id="postal" name="postal" placeholder="A1B 2C3">
             </div>
-        </div> -->
-
-   
+        </div> -->   
         <select class="payment" name="payment" id="payment">
           <option value="credit">Credit</option>
           <option value="debit">Debit</option>
@@ -52,7 +67,7 @@
 
         <div class="row align-items-start">
           <div class="col">
-              <input class="payment" type="text" id="cardNumber" name="cardNumber" placeholder="Card Number">
+              <input class="payment" ng-model="payment.cardNumber" type="text" id="cardNumber" name="cardNumber" placeholder="Card Number">
           </div>
           <div class="col">
               <input class="payment"type="text" id="cvc" name="cvc" placeholder="Card CVC">
@@ -61,12 +76,11 @@
             <input class="payment" type="text" id="expiry" name="expiry" placeholder="EXP">
         </div>
       </div>
-
-      <input type=submit class="btn btn-warning" value="Continue to Delivery">
-        <!-- <a class="btn btn-warning" style="display:block; margin-left: auto; margin-right: auto; border-radius:20px; color:black;" href="index.html" role="button">Sign Up</a> -->
+        <input type="submit" name="review" class="btn btn-info" value="Submit Order" onclick='window.location.href="#!confirm";'/>
       </input>
       
       </form>
+</div>
     </div>
 
 

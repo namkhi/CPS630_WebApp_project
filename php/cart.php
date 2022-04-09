@@ -67,7 +67,7 @@
                         </div>
                         <hr>
                        <button  id="route" class="button route">Route</button>
-                       <a href="php/paymentForm.php"><button class="button transfer">Finalize</button></a>
+                       <a href="#!payment"><button class="button transfer">Finalize</button></a>
                   </div>
             </div>
         </div>
@@ -107,7 +107,7 @@
 </html>
 
 <script src="cart.js"></script>
-<script>
+<!-- <script>
 
   function initMap() {
     const directionsService = new google.maps.DirectionsService();
@@ -301,4 +301,4 @@
 
 </script>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY372hbYFoJP7f_HVnz0n0rmLOk19X3jw&callback=initMap"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY372hbYFoJP7f_HVnz0n0rmLOk19X3jw&callback=initMap"></script> -->

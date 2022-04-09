@@ -162,7 +162,7 @@ session_start();
           <a class="dropdown-item submenudrop" id="submenudrop"> Shopping <i class="fa-solid fa-arrow-down"></i></i></a>
           <div class = "submenu" style="display: none">
             <a class="dropdown-item" href="#!/shop/all"><i class="fa-solid fa-circle-arrow-right"></i> All Products </a>
-            <a class="dropdown-item" href="#!/shop/phones"><i class="fa-solid fa-circle-arrow-right"></i> All Phones </a>
+            <!-- <a class="dropdown-item" href="#!/shop/phones"><i class="fa-solid fa-circle-arrow-right"></i> All Phones </a> -->
             <a class="dropdown-item" href="#!/shop/apple"><i class="fa-solid fa-circle-arrow-right"></i> Apple Phones </a>
             <a class="dropdown-item" href="#!/shop/samsung"><i class="fa-solid fa-circle-arrow-right"></i> Samsung Phones </a>
             <a class="dropdown-item" href="#!/shop/accessories"><i class="fa-solid fa-circle-arrow-right"></i> Browse Accessories </a>
@@ -223,14 +223,14 @@ session_start();
 
 var today = new Date();
 //FINISH
-today.setHours(15,0,0);
+today.setHours(14,0,0);
 today.setMinutes(0,0,0);
 
 // Set the date we're counting down to
 //grab timestamp from database
 var countdown = new Date();
 //START
-countdown.setHours(14,0,0)
+countdown.setHours(15,0,0)
 countdown.setMinutes(0,0,0)
 var countDownDate = new Date(today).getTime();
 var now = new Date().getTime()
@@ -259,13 +259,13 @@ var x = setInterval(function() {
   // If the count down is finished, write some text
   if (distance < 0) {
     clearInterval(x);
-    document.getElementById("saleTimer").innerHTML = "EXPIRED";
+    document.getElementById("saleTimer").innerHTML = "DAILY SALE IS OVER";
   }
 }, 1000);
 }
 else{
   // If the count down is finished, write some text
-    document.getElementById("saleTimer").innerHTML = "EXPIRED";
+    document.getElementById("saleTimer").innerHTML = "DAILY SALE IS OVER";
 }
 </script>
 
@@ -364,8 +364,11 @@ app.config(function($routeProvider) {
         controller: "locationsController"
     })
     .when("/payment",{
-        templateUrl: "php/paymentform.php",
+        templateUrl: "php/paymentForm.php",
         controller: "paymentController"
+    })
+    .when("/confirm",{ 
+      templateUrl: "views/confirmation.html"
     })
     .otherwise({redirectTo:'/'});
     
@@ -373,6 +376,46 @@ app.config(function($routeProvider) {
 });
 
 app.controller('paymentController', function($scope) {
+  $scope.load_details = () =>{
+    $scope.name = localStorage.getItem('name');
+    $scope.destination = localStorage.getItem('destination');
+    $scope.source = localStorage.getItem('source');
+    $scope.distance = localStorage.getItem('distance');
+
+    var items = localStorage.getItem("items");
+    items = items ? items.split(",") : [];
+    var prices = localStorage.getItem("prices");
+    prices = prices ? prices.split(",") : [];
+    
+    var data = [];
+    var totalprice = 0;
+    var discountprice = 0;
+    $scope.stylestrike = "";
+    $scope.saleVisibility = "visibility: hidden;";
+
+
+    if ( document.getElementById("saleTimer").innerHTML != "DAILY SALE IS OVER"){
+      for(var i = 0; i < prices.length; i++){
+        const buffer = `${items[i]}: $${prices[i]}`;
+        totalprice += parseInt(prices[i]);
+        data.push(buffer);
+    }
+      discountprice = totalprice*0.5;
+      $scope.stylestrike = "text-decoration: line-through;";
+      $scope.saleVisibility = "visibility: visible";
+    }
+  else{
+      for(var i = 0; i < prices.length; i++){
+        const buffer = `${items[i]}: $${prices[i]}`;
+        totalprice += parseInt(prices[i]);
+        data.push(buffer);     
+      }
+    }
+    $scope.total = totalprice;
+    $scope.data = data;
+    $scope.discountprice = discountprice;
+
+  };
 
 });
 
@@ -497,7 +540,7 @@ app.controller('cartCtrl', ['$scope', function($scope) {
               directionsRenderer.setDirections(response1);
             }
     
-    
+            localStorage.setItem('name', $('#firstname').val() + " " + $('#lastname').val());
             localStorage.setItem('distance', distance);
             localStorage.setItem('source', start);
             localStorage.setItem('destination', end);
@@ -552,7 +595,7 @@ app.controller('cartCtrl', ['$scope', function($scope) {
     $scope.reviewSubmitData = function(){
         $http({
             method: 'POST',
-            url: 'views/reviewSubmit.php',
+            url: '/views/reviewSubmit.php',
             data:$scope.reviewSubmit,
         }).then(function (data){
             console.log(data) 
@@ -569,6 +612,30 @@ app.controller('cartCtrl', ['$scope', function($scope) {
                 $scope.errorFirstname = null;
                 $scope.errorLastname = null;
                 $scope.erroraddress = null;
+                $scope.successInsert = data.data.message;
+               } 
+        },function (error){
+            console.log(error, 'can not post data.');
+        });
+    }
+});
+
+app.controller("paymentBackEndController", function($scope, $http){
+    $scope.payment = {};
+    $scope.paymentBackEnd = function(){
+        $http({
+            method: 'POST',
+            url: '/php/paymentBackend.php',
+            data:$scope.payment,
+        }).then(function (data){
+            console.log(data) 
+               if(data.data.error)
+               {
+                $scope.errorCard = data.data.error.cardNumber;
+               }
+               else
+               {
+                $scope.errorCard = null;
                 $scope.successInsert = data.data.message;
                } 
         },function (error){
@@ -598,8 +665,25 @@ app.controller("signIn", function ($scope) {
     }
 });
  
-app.controller("shopController", ['$scope', '$compile', function($scope, $routeParams, $sce, $compile){
+app.controller("shopController", ['$scope','$routeParams', '$compile', function($scope, $routeParams, $compile){
   var filter = $routeParams.id;
+  console.log(filter);
+  $scope.ONfilter_data = () => {
+        $('.filter_data').html('<div id="loading" style=""></div>');
+        var action = 'fetch_data';
+        var type = filter;
+        $.ajax({
+          url:"php/fetch_data.php",
+          method:"POST",
+          data:{action: action, type: type},
+          success: function(data){
+            // console.log(data);
+            // $('.filter_data').html(data);
+            $scope.items = data;
+            $scope.$apply();
+          }
+        });
+      };
   $scope.items;
     $scope.filter_data = () => {
         $('.filter_data').html('<div id="loading" style=""></div>');
@@ -619,7 +703,7 @@ app.controller("shopController", ['$scope', '$compile', function($scope, $routeP
       };
 
       function get_filter(){
-        var filter = [];
+        filter = [];
         $('.checkbox:checked').each(function(){
           filter.push($(this).attr("id"));
         });
@@ -731,10 +815,6 @@ $scope.addToCart = (name,price) => {
   var prices = localStorage.getItem("prices");
   prices = prices ? prices.split(",") : [];
 
-  console.log("inside add to cart");
-  console.log(name,price);
-    $scope.item_name = name;
-    $scope.item_price = price;
   // const data = event.dataTransfer.getData("Id"); // id=iphone13pro
     // console.log(document.getElementById(data));
     // var panelData = document.querySelector(".cart");

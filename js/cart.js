@@ -9,10 +9,10 @@ prices.forEach(element => {
 
 
 
-var items = localStorage.getItem("items");
-items = items.split(",");
-var prices = localStorage.getItem("prices");
-prices = prices.split(",");
+// var items = localStorage.getItem("items");
+// items = items.split(",");
+// var prices = localStorage.getItem("prices");
+// prices = prices.split(",");
 
 for(var i = 0; i < prices.length; i++){
 

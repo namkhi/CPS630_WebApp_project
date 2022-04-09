@@ -289,3 +289,39 @@ margin-bottom: 10px;
 .rate > label:hover ~ input:checked ~ label {
     color: #c59b08;
 }
+
+.filter {
+    float: right;
+    height: 46px;
+    padding: 0 10px;
+}
+.filter:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.filter:not(:checked) > label {
+    float:left;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.filter:not(:checked) > label:before {
+    content: '★ ';
+}
+.filter > input:checked ~ label {
+    color: #ffc700;    
+}
+.filter:not(:checked) > label:hover,
+.filter:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.filter > input:checked + label:hover,
+.filter > input:checked + label:hover ~ label,
+.filter > input:checked ~ label:hover,
+.filter > input:checked ~ label:hover ~ label,
+.filter > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
