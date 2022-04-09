@@ -34,27 +34,18 @@ include("navbar.php");
     $conn = mysqli_connect("localhost", "root", "");
     $db_selected = mysqli_select_db($conn, "assignment1");
 
-    $fullname = $_POST['fname'];
-    $birthday = $_POST['birthday'];
-    $email = $_POST['email'];
-    $password = $_POST['pass'];
-    $address = $_POST['address'];
-    $postal = $_POST['postal'];
-    $telephone = $_POST['telephone'];
-    $gender = $_POST['gender'];
-    $payment = $_POST['payment'];
-    $cardNumber = $_POST['cardNumber'];
-    $cvc = $_POST['cvc'];
-    $expiry = $_POST['expiry'];
+    // $fullname = $_POST['fname'];
+    // $address = $_POST['address'];
+    // $postal = $_POST['postal'];
+    // $payment = $_POST['payment'];
+    $cardNumber = md5($_POST['cardNumber']);
   
-     $sql = "INSERT INTO `usertb` (`user_id`, `name`, `telephone`, `email`, `address`, `citycode`, `pw`, `balance`) VALUES (NULL, '$fullname', '$telephone', '$email', '$address', '$postal', '$password', '0');";
+     $sql = "INSERT INTO `payment` (`cardnumber`) VALUES ('$cardNumber');";
 
-
-    
         try{
           if ($conn->query($sql) === TRUE) {
               // echo "Code Successful";
-              echo "<h2 style='color:black; margin: 10%;'> Sign-up Successful </h2>";
+              echo "<h2 style='color:black; margin: 10%;'> Payment successfully inserted </h2>";
           }
       }
       catch(Exception $e) {echo "Error: " . $sql . "<br>" . $conn->error;

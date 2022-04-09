@@ -67,7 +67,7 @@
                         </div>
                         <hr>
                        <button  id="route" class="button route">Route</button>
-                       <a href="final.php" style="visibility:hidden;"><button class="button transfer">Finalize</button></a>
+                       <a href="php/paymentForm.php"><button class="button transfer">Finalize</button></a>
                   </div>
             </div>
         </div>
@@ -87,18 +87,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-    <script>
-
-          $('.route').click(function(){
-            const e = document.querySelector(".transfer");
-            e.style.visibility = "visible";
-          });
-       
   
-    
-
-
-  </script>
 
     <script>
       function toggleDropdown() {
@@ -221,6 +210,7 @@
 
       $('.transfer').click(function(){
         data_transfer();
+        
       });
 
 

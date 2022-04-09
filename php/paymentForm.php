@@ -14,39 +14,25 @@
   <script src="jquery-3.5.1.min.js"></script>
   <link rel="icon" href="public/favicon.ico" sizes="any">
   <script src="https://kit.fontawesome.com/d05f99dbac.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="signUp.css">
-  <title>Sign up</title>
+  <link rel="stylesheet" href="css/signUp.css">
+  <title>Payment</title>
 </head>
 
 <body>
  
-  <?php include("navbar.php"); ?>
     <div class="container">
 
-      <h1 style="color:rgb(75, 75, 75); text-align:center;">Registration</h1>
-      <form action="signUp.php" method="post">
-        <div class="row align-items-start">
+      <h1 style="color:rgb(75, 75, 75); text-align:center;">Payment Details</h1>
+      <form action="php/paymentBackend.php" method="post">
+        <!-- <div class="row align-items-start">
             <div class="col">
                 <label for="fname">Full Name</label>
                 <input type="text" id="fname" name="fname" placeholder="Full name..">
             </div>
-            <div class="col">
-              <label for="=birthday">Birthday</label>
-              <input type="date" id="birthday" name="birthday" >
-          </div>
+      
             
         </div>
-       
-        <div class="row align-items-start">
-            <div class="col">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="placeholder@gmail.com">
-            </div>
-            <div class="col">
-              <label for="pass">Password</label>
-              <input type="password" id="pass" name="pass" placeholder="Password...">
-          </div>
-        </div>
+ 
         <div class="row align-items-start">
             <div class="col">
                 <label for="address">Address</label>
@@ -56,17 +42,9 @@
                 <label for="postal">Postal Code</label>
                 <input type="text" id="postal" name="postal" placeholder="A1B 2C3">
             </div>
-        </div>
-        <label for="telephone">Telephone</label>
-        <input type="tel" id="telephone" name="telephone" placeholder="(999)-101-1337">
-        
-        <label for="gender">Gender</label>
-        <select name="gender" id="gender">
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
+        </div> -->
 
-        <h2 style="color:rgb(75, 75, 75); text-align:center;">Payment Details</h2>
+   
         <select class="payment" name="payment" id="payment">
           <option value="credit">Credit</option>
           <option value="debit">Debit</option>
@@ -84,7 +62,7 @@
         </div>
       </div>
 
-      <input type=submit class="btn btn-warning" value="Sign up">
+      <input type=submit class="btn btn-warning" value="Continue to Delivery">
         <!-- <a class="btn btn-warning" style="display:block; margin-left: auto; margin-right: auto; border-radius:20px; color:black;" href="index.html" role="button">Sign Up</a> -->
       </input>
       

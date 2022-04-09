@@ -510,6 +510,13 @@ app.controller('cartCtrl', ['$scope', function($scope) {
           .catch((e) => window.alert("Directions request failed due to " + status));
         }
 
+        $('.route').click(function(){
+        const e = document.querySelector(".transfer");
+        console.log(e)
+        e.style.visibility = "visible";
+      });
+
+    
     //  $scope.initMap();
     //  $scope.calculateAndDisplayRoute();
   }]);
