@@ -40,7 +40,7 @@
           <label for="accessories">Accessories:</label>  
           <input ng-click="filter_data()" type="checkbox" class="checkbox" name="pick" id="accessories">
           <br>
-          <a href="cart.php"><button class="checkout" style="background-color: aqua; width: 100%; height: 10vh;">Checkout  <i class="fa-solid fa-basket-shopping"></i></button></a>
+          <a href="#!payment"><button class="checkout" style="background-color: aqua; width: 100%; height: 10vh;">Checkout  <i class="fa-solid fa-basket-shopping"></i></button></a>
           <br>
           <p style="display: inline-block"> <u>Total price:</u> </p>
           <mark><p class="total" style="display: inline-block">00.00</p></mark>

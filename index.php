@@ -363,11 +363,19 @@ app.config(function($routeProvider) {
         templateUrl: "views/locations.html",
         controller: "locationsController"
     })
-    
+    .when("/payment",{
+        templateUrl: "php/paymentform.php",
+        controller: "paymentController"
+    })
     .otherwise({redirectTo:'/'});
     
  
 });
+
+app.controller('paymentController', function($scope) {
+
+});
+
 app.controller('cartCtrl', ['$scope', function($scope) {
    
 
@@ -582,10 +590,6 @@ app.controller("signIn", function ($scope) {
         console.log("Hello we pressed sign in");
     }
 });
-
-
-
-
  
 app.controller("shopController", ['$scope', '$compile', function($scope, $routeParams, $sce, $compile){
   var filter = $routeParams.id;
@@ -715,6 +719,20 @@ $scope.loadButtons = () => {
 };
 $scope.addToCart = () => {
   console.log("inside add to cart");
+  panelData = panelData.innerHTML + `<h2 id=${document.getElementById(data)}> ${data} </h2>`;
+    var price = document.querySelector('[id="'+ data +'"] .card-footer a').innerHTML;
+    event.target.innerHTML = panelData + price;
+    var name = price.substring();
+    price = price.substring(price.indexOf('$') + 1);
+
+    // total = total + parseInt(price);
+
+    items.push([data]);
+    prices.push(price);
+
+    localStorage.setItem("items", items);
+    localStorage.setItem("prices", prices);
+    updateTotal();
 };
 
 }]);
@@ -731,7 +749,7 @@ $scope.addToCart = () => {
             ,
             function(value) {
               
-              console.log(scope.items);
+              // console.log(scope.items);
 
               // when the 'compile' expression changes
               // assign it into the current DOM
