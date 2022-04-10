@@ -22,14 +22,82 @@
 <a href="http://localhost:3000/index.php#!/"><button type="button" class="btn btn-warning">Return</button></a>
 
 <?php 
-
-    $conn = mysqli_connect("localhost", "root", "");
-    $db_selected = mysqli_select_db($conn, "assignment1");
+    $conn = mysqli_connect("localhost", "root", "", "assignment1");;
+    // $db_selected = mysqli_select_db($conn, "assignment1");
     $form_data = json_decode(file_get_contents("php://input"));
     $data = array();
     $error = array();
+    
+    $storeInfo = mysqli_real_escape_string($conn, $form_data->store);
+    $total = mysqli_real_escape_string($conn, $form_data->total);
+    $sql = "INSERT INTO `shoppingtb` ( `store_code`, `total_price`) VALUES ('$storeInfo', '$total');";
+    try{
+        if ($conn->query($sql) === FALSE) {
+            echo "Code Unsuccessful";
+        }
+    }
+    catch(Exception $e) {echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+// break
+  $distance = mysqli_real_escape_string($conn, $form_data->distance);
+  $source = mysqli_real_escape_string($conn, $form_data->source);
+  $destination = mysqli_real_escape_string($conn, $form_data->destination);
+  $price= 2 * (mysqli_real_escape_string($conn, $form_data->price));
+  
+    // $sql = "INSERT INTO `triptb` ( `destination_code`, `distance`, `price`, `source_code`,`truck_id`) VALUES ('".$_POST["destination"]."', '".$_POST["distance"]."', '".$price."', '".$_POST["source"]. "','" . 3 . "');";
+    $sql = "INSERT INTO `triptb` ( `destination_code`, `distance`, `price`, `source_code`,`truck_id`) VALUES ('$destination', '$distance', '$price', '$source','" . 3 . "');";
+    try{
+        if ($conn->query($sql) === FALSE) {
+            echo "Code UNSuccessfultruip";
+        }
+    }
+    catch(Exception $e) {echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+    $sql = "SELECT trip_id FROM triptb ORDER BY trip_id DESC LIMIT 1";
+    $result = mysqli_query($conn,$sql);
+    $tripid;
+    while($row = mysqli_fetch_assoc($result)) {
+        $tripid = $row['trip_id'];
+    }
+    echo $tripid;
+  
+
+    $sql = "SELECT `user_id` FROM usertb ORDER BY `user_id` DESC LIMIT 1";
+    $result = mysqli_query($conn,$sql);
+    $userid;
+    while($row = mysqli_fetch_assoc($result)) {
+        $userid = $row['user_id'];
+    }
+    echo $userid;
+
+
+// break
+    $sql = "SELECT receipt_id FROM shoppingtb ORDER BY receipt_id DESC LIMIT 1";
+    $result = mysqli_query($conn,$sql);
+    $receipt;
+    while($row = mysqli_fetch_assoc($result)) {
+        $receipt = $row['receipt_id'];
+    }
+    echo $receipt;
+
+    $date = date("Y-m-d");
+
+    $sql = "INSERT INTO `ordertb` ( `date_issued`, `date_received`, `receipt_id`, `total_price`,`trip_id`,`user_id`) VALUES ('$date', '" . NULL . "', ' $receipt ', '$total',' $tripid ', '$userid');";
+    try{
+        if ($conn->query($sql) === FALSE) {
+            echo "Code UNSuccessful";
+        }
+    }
+    catch(Exception $e) {echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+  
+    
+
+
     $cardNumber = mysqli_real_escape_string($conn, $form_data->cardNumber);
-    $cardNumber = md5($cardNumber); 
+    $salt = generateRandomSalt();
+    $cardNumber = md5($cardNumber.$salt); 
     if(!$conn){
         echo "Connection Failed " . "<br>";
     }
@@ -46,7 +114,7 @@
     // $payment = $_POST['payment'];
     // $cardNumber = md5($_POST['cardNumber']);
     $query = "
-    INSERT INTO payment(cardNumber) VALUES ('$cardNumber')
+    INSERT INTO payment(cardNumber, salt) VALUES ('$cardNumber','$salt')
     ";
     if(mysqli_query($conn, $query))
     {
@@ -63,8 +131,11 @@
     //   }
     //   catch(Exception $e) {echo "Error: " . $sql . "<br>" . $conn->error;
     //   }
-   
+    function generateRandomSalt(){
+      return substr(md5(microtime()), 0, 8);
+    }                                        
 ?> 
+
 <script>
           function toggleDropdown() {
               const e = document.querySelector(".submenu");
@@ -76,6 +147,9 @@
       
             }
             document.getElementById("submenudrop").addEventListener("click", toggleDropdown);
+
+
+          
          </script>
    
 </body>

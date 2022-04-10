@@ -20,7 +20,8 @@
 </head>
 
 <body ng-controller="paymentController">
- 
+<div ng-app="myapp" ng-controller="paymentBackEndController">
+      <form ng-submit="paymentBackEnd()" name="paymentForm">
     <div class="container" ng-init="load_details() ">
     <h1 style="color:rgb(75, 75, 75); text-align:center;"><u>Invoice</u></h1>  
     <div style="background-color:white; padding:0.8rem;">
@@ -29,18 +30,16 @@
           <p>Source: {{source}}</p>
           <p>Destination: {{destination}}</p>
           <p>Distance: {{distance}}</p>
+          <p>Store Number: {{store}}</p>
           <h4>Cart:</h4>
           
           <ol ng-repeat="item in data"> {{item}} </ol>
          
           <p style={{stylestrike}}>Total: {{total}}</p>
-          
           <p style={{saleVisibility}}>Discounted Price - 50% OFF APPLIED: {{discountprice}}</p>
         </div>
       </div> 
       <h1 style="color:rgb(75, 75, 75); text-align:center;">Payment Details</h1>
-      <div ng-app="myapp" ng-controller="paymentBackEndController">
-      <form ng-submit="paymentBackEnd()" name="paymentForm">
         <!-- <div class="row align-items-start">
             <div class="col">
                 <label for="fname">Full Name</label>
@@ -67,7 +66,7 @@
 
         <div class="row align-items-start">
           <div class="col">
-              <input class="payment" ng-model="payment.cardNumber" type="text" id="cardNumber" name="cardNumber" placeholder="Card Number">
+            <input class="payment" ng-model="payment.cardNumber" type="text" id="cardNumber" name="cardNumber" placeholder="Card Number">
           </div>
           <div class="col">
               <input class="payment"type="text" id="cvc" name="cvc" placeholder="Card CVC">

@@ -381,7 +381,13 @@ app.controller('paymentController', function($scope) {
     $scope.destination = localStorage.getItem('destination');
     $scope.source = localStorage.getItem('source');
     $scope.distance = localStorage.getItem('distance');
-
+    $scope.store;
+    if ($scope.source == "3401 Dufferin St, Toronto, ON M6A 2T9, Canada"){
+      $scope.store = "100";
+    }
+    else if ($scope.source == "220 Yonge St, Toronto, ON M5B 2H1, Canada"){
+      $scope.store = "101";
+    }
     var items = localStorage.getItem("items");
     items = items ? items.split(",") : [];
     var prices = localStorage.getItem("prices");
@@ -417,6 +423,75 @@ app.controller('paymentController', function($scope) {
 
   };
 
+});
+
+app.controller("paymentBackEndController", function($scope, $http){
+  $scope.load_details = () =>{
+    $scope.name = localStorage.getItem('name');
+    $scope.destination = localStorage.getItem('destination');
+    $scope.source = localStorage.getItem('source');
+    $scope.distance = localStorage.getItem('distance');
+    $scope.store;
+    if ($scope.source == "3401 Dufferin St, Toronto, ON M6A 2T9, Canada"){
+      $scope.store = "100";
+    }
+    else if ($scope.source == "220 Yonge St, Toronto, ON M5B 2H1, Canada"){
+      $scope.store = "101";
+    }
+    var items = localStorage.getItem("items");
+    items = items ? items.split(",") : [];
+    var prices = localStorage.getItem("prices");
+    prices = prices ? prices.split(",") : [];
+    
+    var data = [];
+    var totalprice = 0;
+    var discountprice = 0;
+    $scope.stylestrike = "";
+    $scope.saleVisibility = "visibility: hidden;";
+
+
+    if ( document.getElementById("saleTimer").innerHTML != "DAILY SALE IS OVER"){
+      for(var i = 0; i < prices.length; i++){
+        const buffer = `${items[i]}: $${prices[i]}`;
+        totalprice += parseInt(prices[i]);
+        data.push(buffer);
+    }
+      discountprice = totalprice*0.5;
+      $scope.stylestrike = "text-decoration: line-through;";
+      $scope.saleVisibility = "visibility: visible";
+    }
+  else{
+      for(var i = 0; i < prices.length; i++){
+        const buffer = `${items[i]}: $${prices[i]}`;
+        totalprice += parseInt(prices[i]);
+        data.push(buffer);     
+      }
+    }
+    $scope.total = totalprice;
+    $scope.data = data;
+    $scope.discountprice = discountprice;
+  };
+    $scope.payment = {};
+    $scope.paymentBackEnd = function(){
+        $http({
+            method: 'POST',
+            url: '/php/paymentBackend.php',
+            data: Object.assign($scope.payment, {"storeinfo": $scope.store, "total": $scope.total, "destination": $scope.destination, "source": $scope.source, "distance": $scope.distance}),
+        }).then(function (data){
+            console.log(data) 
+               if(data.data.error)
+               {
+                $scope.errorCard = data.data.error.cardNumber;
+               }
+               else
+               {
+                $scope.errorCard = null;
+                $scope.successInsert = data.data.message;
+               } 
+        },function (error){
+            console.log(error, 'can not post data.');
+        });
+    }
 });
 
 app.controller('cartCtrl', ['$scope', function($scope) {
@@ -617,32 +692,98 @@ app.controller('cartCtrl', ['$scope', function($scope) {
         },function (error){
             console.log(error, 'can not post data.');
         });
-    }
+    };
+    // $scope.filterValue = {};
+    // $scope.reviewFilter = function(){
+    //     console.log($scope.filterValue);
+    //     $http({
+    //         method: 'POST',
+    //         url: '/views/review.php',
+    //         data:$scope.filterValue,
+    // $scope.reviewFilter = (value) => {
+    //   console.log(value);
+    //   $http({
+    //         method: 'POST',
+    //         url: '/views/review.php',
+    //         data: {"value": value},
+    //     }).then(function (data){
+    //         console.log(data) 
+    //            if(data.data.error)
+    //            {
+    //             $scope.errorFirstname = data.data.error.first_name;
+    //             $scope.errorLastname = data.data.error.last_name;
+    //             $scope.erroraddress = data.data.error.address;
+    //             $scope.successInsert = null;
+    //            }
+    //            else
+    //            {
+    //             $scope.reviewSubmit = null;
+    //             $scope.errorFirstname = null;
+    //             $scope.errorLastname = null;
+    //             $scope.erroraddress = null;
+    //             $scope.successInsert = data.data.message;
+    //            } 
+    //     },function (error){
+    //         console.log(error, 'can not post data.');
+    //     });
+    // };
+    $scope.reviews;
+    $scope.reviewFilter = (value) => {
+        console.log(value);
+        var action = 'fetch_data';
+ 
+        $.ajax({
+          url:"php/reviewFilter.php",
+          method:"POST",
+          data:{action: action, type: value},
+          success: function(data){
+            console.log(data);
+            $('.reviews').html(data);
+            // $scope.reviews = data;
+            // $scope.$apply();
+          }
+        });
+      };
 });
 
-app.controller("paymentBackEndController", function($scope, $http){
-    $scope.payment = {};
-    $scope.paymentBackEnd = function(){
-        $http({
-            method: 'POST',
-            url: '/php/paymentBackend.php',
-            data:$scope.payment,
-        }).then(function (data){
-            console.log(data) 
-               if(data.data.error)
-               {
-                $scope.errorCard = data.data.error.cardNumber;
-               }
-               else
-               {
-                $scope.errorCard = null;
-                $scope.successInsert = data.data.message;
-               } 
-        },function (error){
-            console.log(error, 'can not post data.');
-        });
-    }
-});
+ // declare a new module, and inject the $compileProvider
+ app.directive('compileReview', ['$compile', function ($compile, $scope) {
+      return function(scope, element, attrs) {
+          scope.$watch(
+            // function(scope) {
+            //    // watch the 'compile' expression for changes
+            //   return scope.$evalAsync(attrs.compile);
+            'reviews'
+            // }
+            ,
+            function(value) {
+              
+              // console.log(scope.items);
+
+              // when the 'compile' expression changes
+              // assign it into the current DOM
+              element.html(scope.reviews);
+
+              // compile the new DOM and link it to the current
+              // scope.
+              // NOTE: we only compile .childNodes so that
+              // we don't get into infinite loop compiling ourselves
+              $compile(element.contents())(scope);
+              
+            }
+        );
+    };
+}]);
+
+app.directive('reviews', ['$compile', function ($compile, $scope) {
+    return {
+      template: "<div ng-bind-html='reviews'></div>",
+      restrict: 'E',
+        link: function(scope, element, attrs){
+            console.log('"link" function inside directive vk called, "element" param is: ', element)
+        },
+    };
+ }]);
 
 app.controller("contactCtrl", function ($scope) {
     
@@ -652,7 +793,6 @@ app.controller("homeCtrl", function ($scope) {
 });
 
 app.controller("signInCtrl", function ($scope) {
-  //if reply from signIn.php is "PASS" then change the class of li items to enabled int he body ng-app
     document.getElementById("nav").className = "enabled";
     
   });
