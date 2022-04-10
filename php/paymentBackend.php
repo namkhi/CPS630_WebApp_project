@@ -28,7 +28,7 @@
     $data = array();
     $error = array();
     
-    $storeInfo = mysqli_real_escape_string($conn, $form_data->store);
+    $storeInfo = mysqli_real_escape_string($conn, $form_data->storeinfo);
     $total = mysqli_real_escape_string($conn, $form_data->total);
     $sql = "INSERT INTO `shoppingtb` ( `store_code`, `total_price`) VALUES ('$storeInfo', '$total');";
     try{

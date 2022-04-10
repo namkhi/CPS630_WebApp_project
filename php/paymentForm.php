@@ -4,7 +4,6 @@
 <head>
 
   <meta charset="UTF-8">
-  <!-- <meta http-equiv="refresh" content="10"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://kit.fontawesome.com/d05f99dbac.js" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -21,7 +20,7 @@
 
 <body ng-controller="paymentController">
 <div ng-app="myapp" ng-controller="paymentBackEndController">
-      <form ng-submit="paymentBackEnd()" name="paymentForm">
+    <form ng-submit="paymentBackEnd()" name="paymentForm">
     <div class="container" ng-init="load_details() ">
     <h1 style="color:rgb(75, 75, 75); text-align:center;"><u>Invoice</u></h1>  
     <div style="background-color:white; padding:0.8rem;">
@@ -39,26 +38,7 @@
           <p style={{saleVisibility}}>Discounted Price - 50% OFF APPLIED: {{discountprice}}</p>
         </div>
       </div> 
-      <h1 style="color:rgb(75, 75, 75); text-align:center;">Payment Details</h1>
-        <!-- <div class="row align-items-start">
-            <div class="col">
-                <label for="fname">Full Name</label>
-                <input type="text" id="fname" name="fname" placeholder="Full name..">
-            </div>
-      
-            
-        </div>
- 
-        <div class="row align-items-start">
-            <div class="col">
-                <label for="address">Address</label>
-                <input type="text" id="address" name="address" placeholder="1 abc street">
-            </div>
-            <div class="col">
-                <label for="postal">Postal Code</label>
-                <input type="text" id="postal" name="postal" placeholder="A1B 2C3">
-            </div>
-        </div> -->   
+      <h1 style="color:rgb(75, 75, 75); text-align:center;">Payment Details</h1>  
         <select class="payment" name="payment" id="payment">
           <option value="credit">Credit</option>
           <option value="debit">Debit</option>
@@ -75,13 +55,15 @@
             <input class="payment" type="text" id="expiry" name="expiry" placeholder="EXP">
         </div>
       </div>
-        <input type="submit" name="review" class="btn btn-info" value="Submit Order" onclick='window.location.href="#!confirm";'/>
-      </input>
-      
+        <input type="submit" name="review" class="btn btn-info" value="Submit Order" onclick="setTimeout(function() { window.location.href='#!confirm';}, 1000);"/></input>
+        <!-- <input type="submit" name="review" class="btn btn-info" value="Submit Order"></input> -->
+  
       </form>
 </div>
     </div>
 
+
+  
 
    
 </body>

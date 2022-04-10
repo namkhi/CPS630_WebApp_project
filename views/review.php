@@ -31,59 +31,44 @@
     <br /><br />
     <div>
     <form name="userForm" ng-submit="reviewSubmitData()">
-        <!-- <label class="text-success" ng-show="successreviewSubmitData">{{successreviewSubmitData}}</label> -->
         <div class="form-group">
         <label for="product">Product:</label>
-        
-        <!-- <input type="text" name="first_name" ng-model="reviewSubmitData.first_name" class="form-control" /> -->
-                    <select ng-model=reviewSubmit.product name="product">
-                    <option value="iPhone13Pro">iPhone 13 Pro</option>
-                    <option value="iPhone13">iPhone 13</option>
-                    <option value="iPhoneSE">iPhone SE</option>
-                    <option value="GalaxyS22Ultra">Galaxy S22 Ultra</option>
-                    <option value="GalaxyS22">Galaxy S22</option>
-                    <option value="GalaxyZFlip35G">Galaxy Z Flip3 5G</option>
-                    <option value="MagSafeCharger">MagSafe Charger</option>
-                    <option value="SamsungGalaxySmartTag">Samsung Galaxy SmartTag</option>
-                    <option value="BelkinBOOSTCharger">Belkin BOOST Charger</option>
-                    </select> 
-            <!-- <label>First Name <span class="text-danger">*</span></label> -->
-            
-            <!-- <span class="text-danger" ng-show="errorFirstname">{{errorFirstname}}</span> -->
+            <select ng-model=reviewSubmit.product name="product">
+            <option value="iPhone13Pro">iPhone 13 Pro</option>
+            <option value="iPhone13">iPhone 13</option>
+            <option value="iPhoneSE">iPhone SE</option>
+            <option value="GalaxyS22Ultra">Galaxy S22 Ultra</option>
+            <option value="GalaxyS22">Galaxy S22</option>
+            <option value="GalaxyZFlip35G">Galaxy Z Flip3 5G</option>
+            <option value="MagSafeCharger">MagSafe Charger</option>
+            <option value="SamsungGalaxySmartTag">Samsung Galaxy SmartTag</option>
+            <option value="BelkinBOOSTCharger">Belkin BOOST Charger</option>
+            </select> 
         </div>
         <div class="form-group">
         <div class="rate">
-                        <input type="radio" id="star5" ng-model="reviewSubmit.rate"  name="rate" ng-value="5" />
-                        <label for="star5" title="text">5 stars</label>
-                        <input type="radio" id="star4" ng-model="reviewSubmit.rate"  name="rate" ng-value="4" />
-                        <label for="star4" title="text">4 stars</label>
-                        <input type="radio" id="star3" ng-model="reviewSubmit.rate"  name="rate" ng-value="3" />
-                        <label for="star3" title="text">3 stars</label>
-                        <input type="radio" id="star2" ng-model="reviewSubmit.rate"  name="rate" ng-value="2" />
-                        <label for="star2" title="text">2 stars</label>
-                        <input type="radio" id="star1" ng-model="reviewSubmit.rate"  name="rate" ng-value="1" />
-                        <label for="star1" title="text">1 star</label>
-                    </div>
-            <!-- <label>Last Name <span class="text-danger">*</span></label> -->
-            <!-- <input type="text" name="last_name" ng-model="reviewSubmitData.last_name" class="form-control" /> -->
-            <!-- <span class="text-danger" ng-show="errorLastname">{{errorLastname}}</span> -->
+            <input type="radio" id="star5" ng-model="reviewSubmit.rate"  name="rate" ng-value="5" />
+            <label for="star5" title="text">5 stars</label>
+            <input type="radio" id="star4" ng-model="reviewSubmit.rate"  name="rate" ng-value="4" />
+            <label for="star4" title="text">4 stars</label>
+            <input type="radio" id="star3" ng-model="reviewSubmit.rate"  name="rate" ng-value="3" />
+            <label for="star3" title="text">3 stars</label>
+            <input type="radio" id="star2" ng-model="reviewSubmit.rate"  name="rate" ng-value="2" />
+            <label for="star2" title="text">2 stars</label>
+            <input type="radio" id="star1" ng-model="reviewSubmit.rate"  name="rate" ng-value="1" />
+            <label for="star1" title="text">1 star</label>
+        </div>
         </div>
         <div class="form-group">
         <textarea ng-model="reviewSubmit.review" style="height:200px;" id="review" name="review" placeholder="How was your experience with the product?"></textarea>
-        <!-- <label>Address <span class="text-danger">*</span></label> -->
-            <!-- <input type="text" name="address" ng-model="reviewSubmitData.address" class="form-control" /> -->
-            <!-- <span class="text-danger" ng-show="erroraddress">{{erroraddress}}</span> -->
         </div>
-        <br />
+        <br/>
         <div class="form-group">
             <input type="submit" name="review" class="btn btn-info" value="Submit Review" onclick='window.location.reload();'/>
-            <!-- <input type="submit" name="review" class="btn btn-info" value="Submit Review"/> -->
         </div>
     </form>
     </div>
-    <!-- <form ng-submit="reviewFilter(filterValue)"> -->
     <h3>Filter Items</h3>
-    <!-- <select ng-model="filterValue" ng-change="reviewFilter(filterValue);" name="productFilter" > -->
     <select ng-model="filterValue" name="productFilter" ng-change="reviewFilter(filterValue)">
         <option value="iPhone13Pro">iPhone 13 Pro</option>
         <option value="iPhone13">iPhone 13</option>
@@ -95,8 +80,6 @@
         <option value="SamsungGalaxySmartTag">Samsung Galaxy SmartTag</option>
         <option value="BelkinBOOSTCharger">Belkin BOOST Charger</option>
     </select>
-        <!-- <input type="submit" name="review" class="btn btn-info" value="Submit Review" onclick='window.location.reload();'/> -->
-    <!-- <form> -->
 </div>
 
     <div class="reviews" ng-init="reviewFilter()">
@@ -111,45 +94,6 @@
         echo $name . $rate . $review;
     }
 include('../php/db_connection.php');
-
-    // $form_data = "";
-    // $queryCondition = "";
-    // if (isset($_POST["productFilter"])){
-
-    // };
-
-// $value = "iPhone13";
-// if(true){
-    
-//     $query = "SELECT * FROM reviews ORDER BY `reviewID` DESC";
-//     $result = $conn->query($query);
-
-//     $output = '';
-//     if($result->num_rows > 0){
-//         while($row = $result->fetch_assoc())
-//         {
-//             $output .= '
-//             <div class="card apple phones" ondrop="drop(event)" ondragstart="dragStart(event)"  id="'.$row["name"].'" draggable="true" style="width: 25rem;">
-//             <div class="card-body">
-//               <h5 class="card-title">'.$row["name"].'</h5>
-//               <p class="card-text"> '.$row["review"].' </p>
-//               <!-- <a href="#" class="btn btn-primary">Add to cart</a> -->
-//             </div>
-//             <div class="card-footer">
-//               <a>Rating:'.(str_repeat('★', intval($row["rate"]))) .'</a>
-//             </div>
-//           </div>
-//             ';
-//         }
-//     }
-//     else
-//     {
-//         $output = '<h3> No Data Found </h3>';
-//     }
-
-//     echo $output;
-// }
-
 ?>
 
 

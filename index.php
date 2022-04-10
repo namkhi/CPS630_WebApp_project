@@ -223,14 +223,14 @@ session_start();
 
 var today = new Date();
 //FINISH
-today.setHours(14,0,0);
+today.setHours(15,0,0);
 today.setMinutes(0,0,0);
 
 // Set the date we're counting down to
 //grab timestamp from database
 var countdown = new Date();
 //START
-countdown.setHours(15,0,0)
+countdown.setHours(14,0,0)
 countdown.setMinutes(0,0,0)
 var countDownDate = new Date(today).getTime();
 var now = new Date().getTime()
@@ -341,7 +341,6 @@ app.config(function($routeProvider) {
     })
     .when("/about", {
         templateUrl : "views/about.html",
-        controller : "aboutCtrl"
     })
     .when("/contact", {
         templateUrl : "views/contact.html",
@@ -376,57 +375,57 @@ app.config(function($routeProvider) {
 });
 
 app.controller('paymentController', function($scope) {
-  $scope.load_details = () =>{
-    $scope.name = localStorage.getItem('name');
-    $scope.destination = localStorage.getItem('destination');
-    $scope.source = localStorage.getItem('source');
-    $scope.distance = localStorage.getItem('distance');
-    $scope.store;
-    if ($scope.source == "3401 Dufferin St, Toronto, ON M6A 2T9, Canada"){
-      $scope.store = "100";
-    }
-    else if ($scope.source == "220 Yonge St, Toronto, ON M5B 2H1, Canada"){
-      $scope.store = "101";
-    }
-    var items = localStorage.getItem("items");
-    items = items ? items.split(",") : [];
-    var prices = localStorage.getItem("prices");
-    prices = prices ? prices.split(",") : [];
+  // $scope.load_details = () =>{
+  //   $scope.name = localStorage.getItem('name');
+  //   $scope.destination = localStorage.getItem('destination');
+  //   $scope.source = localStorage.getItem('source');
+  //   $scope.distance = localStorage.getItem('distance');
+  //   $scope.store;
+  //   if ($scope.source == "3401 Dufferin St, Toronto, ON M6A 2T9, Canada"){
+  //     $scope.store = "100";
+  //   }
+  //   else if ($scope.source == "220 Yonge St, Toronto, ON M5B 2H1, Canada"){
+  //     $scope.store = "101";
+  //   }
+  //   var items = localStorage.getItem("items");
+  //   items = items ? items.split(",") : [];
+  //   var prices = localStorage.getItem("prices");
+  //   prices = prices ? prices.split(",") : [];
     
-    var data = [];
-    var totalprice = 0;
-    var discountprice = 0;
-    $scope.stylestrike = "";
-    $scope.saleVisibility = "visibility: hidden;";
+  //   var data = [];
+  //   var totalprice = 0;
+  //   var discountprice = 0;
+  //   $scope.stylestrike = "";
+  //   $scope.saleVisibility = "visibility: hidden;";
 
 
-    if ( document.getElementById("saleTimer").innerHTML != "DAILY SALE IS OVER"){
-      for(var i = 0; i < prices.length; i++){
-        const buffer = `${items[i]}: $${prices[i]}`;
-        totalprice += parseInt(prices[i]);
-        data.push(buffer);
-    }
-      discountprice = totalprice*0.5;
-      $scope.stylestrike = "text-decoration: line-through;";
-      $scope.saleVisibility = "visibility: visible";
-    }
-  else{
-      for(var i = 0; i < prices.length; i++){
-        const buffer = `${items[i]}: $${prices[i]}`;
-        totalprice += parseInt(prices[i]);
-        data.push(buffer);     
-      }
-    }
-    $scope.total = totalprice;
-    $scope.data = data;
-    $scope.discountprice = discountprice;
+  //   if ( document.getElementById("saleTimer").innerHTML != "DAILY SALE IS OVER"){
+  //     for(var i = 0; i < prices.length; i++){
+  //       const buffer = `${items[i]}: $${prices[i]}`;
+  //       totalprice += parseInt(prices[i]);
+  //       data.push(buffer);
+  //   }
+  //     discountprice = totalprice*0.5;
+  //     $scope.stylestrike = "text-decoration: line-through;";
+  //     $scope.saleVisibility = "visibility: visible";
+  //   }
+  // else{
+  //     for(var i = 0; i < prices.length; i++){
+  //       const buffer = `${items[i]}: $${prices[i]}`;
+  //       totalprice += parseInt(prices[i]);
+  //       data.push(buffer);     
+  //     }
+  //   }
+  //   $scope.total = totalprice;
+  //   $scope.data = data;
+  //   $scope.discountprice = discountprice;
 
-  };
+  // };
 
 });
 
 app.controller("paymentBackEndController", function($scope, $http){
-  $scope.load_details = () =>{
+    $scope.load_details = () =>{
     $scope.name = localStorage.getItem('name');
     $scope.destination = localStorage.getItem('destination');
     $scope.source = localStorage.getItem('source');
@@ -459,7 +458,7 @@ app.controller("paymentBackEndController", function($scope, $http){
       discountprice = totalprice*0.5;
       $scope.stylestrike = "text-decoration: line-through;";
       $scope.saleVisibility = "visibility: visible";
-    }
+    } 
   else{
       for(var i = 0; i < prices.length; i++){
         const buffer = `${items[i]}: $${prices[i]}`;
@@ -470,13 +469,14 @@ app.controller("paymentBackEndController", function($scope, $http){
     $scope.total = totalprice;
     $scope.data = data;
     $scope.discountprice = discountprice;
+
   };
     $scope.payment = {};
     $scope.paymentBackEnd = function(){
         $http({
             method: 'POST',
             url: '/php/paymentBackend.php',
-            data: Object.assign($scope.payment, {"storeinfo": $scope.store, "total": $scope.total, "destination": $scope.destination, "source": $scope.source, "distance": $scope.distance}),
+            data: Object.assign($scope.payment, {"storeinfo": $scope.store, "total": ($scope.discountprice !== 0 ? $scope.discountprice : $scope.total), "destination": $scope.destination, "source": $scope.source, "distance": $scope.distance}),
         }).then(function (data){
             console.log(data) 
                if(data.data.error)
@@ -670,7 +670,7 @@ app.controller('cartCtrl', ['$scope', function($scope) {
     $scope.reviewSubmitData = function(){
         $http({
             method: 'POST',
-            url: '/views/reviewSubmit.php',
+            url: '/php/reviewSubmit.php',
             data:$scope.reviewSubmit,
         }).then(function (data){
             console.log(data) 
@@ -693,40 +693,7 @@ app.controller('cartCtrl', ['$scope', function($scope) {
             console.log(error, 'can not post data.');
         });
     };
-    // $scope.filterValue = {};
-    // $scope.reviewFilter = function(){
-    //     console.log($scope.filterValue);
-    //     $http({
-    //         method: 'POST',
-    //         url: '/views/review.php',
-    //         data:$scope.filterValue,
-    // $scope.reviewFilter = (value) => {
-    //   console.log(value);
-    //   $http({
-    //         method: 'POST',
-    //         url: '/views/review.php',
-    //         data: {"value": value},
-    //     }).then(function (data){
-    //         console.log(data) 
-    //            if(data.data.error)
-    //            {
-    //             $scope.errorFirstname = data.data.error.first_name;
-    //             $scope.errorLastname = data.data.error.last_name;
-    //             $scope.erroraddress = data.data.error.address;
-    //             $scope.successInsert = null;
-    //            }
-    //            else
-    //            {
-    //             $scope.reviewSubmit = null;
-    //             $scope.errorFirstname = null;
-    //             $scope.errorLastname = null;
-    //             $scope.erroraddress = null;
-    //             $scope.successInsert = data.data.message;
-    //            } 
-    //     },function (error){
-    //         console.log(error, 'can not post data.');
-    //     });
-    // };
+  
     $scope.reviews;
     $scope.reviewFilter = (value) => {
         console.log(value);
@@ -739,8 +706,7 @@ app.controller('cartCtrl', ['$scope', function($scope) {
           success: function(data){
             console.log(data);
             $('.reviews').html(data);
-            // $scope.reviews = data;
-            // $scope.$apply();
+ 
           }
         });
       };
