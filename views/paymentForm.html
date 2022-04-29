@@ -18,8 +18,8 @@
   <title>Payment</title>
 </head>
 
-<body ng-controller="paymentController">
-<div ng-app="myapp" ng-controller="paymentBackEndController">
+<body ng-app="myapp" ng-controller="paymentController">
+<div>
     <form ng-submit="paymentBackEnd()" name="paymentForm">
     <div class="container" ng-init="load_details() ">
     <h1 style="color:rgb(75, 75, 75); text-align:center;"><u>Invoice</u></h1>  
@@ -34,8 +34,8 @@
           
           <ol ng-repeat="item in data"> {{item}} </ol>
          
-          <p style={{stylestrike}}>Total: {{total}}</p>
-          <p style={{saleVisibility}}>Discounted Price - 50% OFF APPLIED: {{discountprice}}</p>
+          <p ng-style="stylestrike">Total: {{total}}</p>
+          <p ng-style="saleVisibility">Discounted Price - 50% OFF APPLIED: {{discountprice}}</p>
         </div>
       </div> 
       <h1 style="color:rgb(75, 75, 75); text-align:center;">Payment Details</h1>  

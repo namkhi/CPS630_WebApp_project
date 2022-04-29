@@ -63,7 +63,7 @@ session_start();
        <label>Enter Your Password</label>
        <input type="password" name="password" ng-model="loginData.password" class="form-control" />
       </div>
-      <div class="form-group" align="center">
+      <div class="form-group">
        <input type="submit" name="login" class="btn btn-primary" value="Login" />
        <br />
        <input type="button" style="margin-top: 0.5rem;" name="register_link" class="btn btn-primary btn-link" ng-click="showRegister()" value="Register" />
@@ -108,7 +108,7 @@ session_start();
        <input type="number" name="telephone" ng-model="registerData.telephone" class="form-control" />
       </div>
    
-      <div class="form-group" align=center>
+      <div class="form-group">
        <input type="submit" name="register" class="btn btn-primary" value="Register" />
        <br />
 
@@ -181,9 +181,8 @@ session_start();
 </div>
 
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY372hbYFoJP7f_HVnz0n0rmLOk19X3jw&"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=INSERTKEYHERE"></script>
 
-    <!-- <a href="logout.php">Logout</a> -->
  
    <?php
    }
@@ -272,6 +271,7 @@ else{
 
 <script>
 var app = angular.module('login_register_app', ['ngRoute','ngSanitize']);
+
 app.controller('login_register_controller', function($scope, $http){
  $scope.closeMsg = function(){
   $scope.alertMsg = false;
@@ -294,7 +294,7 @@ app.controller('login_register_controller', function($scope, $http){
  $scope.submitRegister = function(){
   $http({
    method:"POST",
-   url:"register.php",
+   url:"php/register.php",
    data:$scope.registerData
   }).then(function(data){
    $scope.alertMsg = true;
@@ -315,7 +315,7 @@ app.controller('login_register_controller', function($scope, $http){
  $scope.submitLogin = function(){
   $http({
    method:"POST",
-   url:"login.php",
+   url:"php/login.php",
    data:$scope.loginData
   }).then(function(data){
    if(data.data.error != '')
@@ -337,14 +337,12 @@ app.config(function($routeProvider) {
     $routeProvider
     .when("/", {
         templateUrl : "views/home.html",
-        controller : "homeCtrl"
     })
     .when("/about", {
         templateUrl : "views/about.html",
     })
     .when("/contact", {
         templateUrl : "views/contact.html",
-        controller : "contactCtrl"
     })
     .when("/review", {
         templateUrl : "views/review.php",
@@ -355,7 +353,7 @@ app.config(function($routeProvider) {
         controller : "cartCtrl"
     })
     .when("/shop/:id",{
-        templateUrl: "php/shop.php",
+        templateUrl: "views/shop.php",
         controller: "shopController"
     })
     .when("/locations",{
@@ -363,7 +361,7 @@ app.config(function($routeProvider) {
         controller: "locationsController"
     })
     .when("/payment",{
-        templateUrl: "php/paymentForm.php",
+        templateUrl: "views/paymentForm.html",
         controller: "paymentController"
     })
     .when("/confirm",{ 
@@ -375,57 +373,7 @@ app.config(function($routeProvider) {
 });
 
 app.controller('paymentController', function($scope) {
-  // $scope.load_details = () =>{
-  //   $scope.name = localStorage.getItem('name');
-  //   $scope.destination = localStorage.getItem('destination');
-  //   $scope.source = localStorage.getItem('source');
-  //   $scope.distance = localStorage.getItem('distance');
-  //   $scope.store;
-  //   if ($scope.source == "3401 Dufferin St, Toronto, ON M6A 2T9, Canada"){
-  //     $scope.store = "100";
-  //   }
-  //   else if ($scope.source == "220 Yonge St, Toronto, ON M5B 2H1, Canada"){
-  //     $scope.store = "101";
-  //   }
-  //   var items = localStorage.getItem("items");
-  //   items = items ? items.split(",") : [];
-  //   var prices = localStorage.getItem("prices");
-  //   prices = prices ? prices.split(",") : [];
-    
-  //   var data = [];
-  //   var totalprice = 0;
-  //   var discountprice = 0;
-  //   $scope.stylestrike = "";
-  //   $scope.saleVisibility = "visibility: hidden;";
-
-
-  //   if ( document.getElementById("saleTimer").innerHTML != "DAILY SALE IS OVER"){
-  //     for(var i = 0; i < prices.length; i++){
-  //       const buffer = `${items[i]}: $${prices[i]}`;
-  //       totalprice += parseInt(prices[i]);
-  //       data.push(buffer);
-  //   }
-  //     discountprice = totalprice*0.5;
-  //     $scope.stylestrike = "text-decoration: line-through;";
-  //     $scope.saleVisibility = "visibility: visible";
-  //   }
-  // else{
-  //     for(var i = 0; i < prices.length; i++){
-  //       const buffer = `${items[i]}: $${prices[i]}`;
-  //       totalprice += parseInt(prices[i]);
-  //       data.push(buffer);     
-  //     }
-  //   }
-  //   $scope.total = totalprice;
-  //   $scope.data = data;
-  //   $scope.discountprice = discountprice;
-
-  // };
-
-});
-
-app.controller("paymentBackEndController", function($scope, $http){
-    $scope.load_details = () =>{
+  $scope.load_details = () =>{
     $scope.name = localStorage.getItem('name');
     $scope.destination = localStorage.getItem('destination');
     $scope.source = localStorage.getItem('source');
@@ -446,7 +394,7 @@ app.controller("paymentBackEndController", function($scope, $http){
     var totalprice = 0;
     var discountprice = 0;
     $scope.stylestrike = "";
-    $scope.saleVisibility = "visibility: hidden;";
+    $scope.saleVisibility = {'visibility': 'hidden'};
 
 
     if ( document.getElementById("saleTimer").innerHTML != "DAILY SALE IS OVER"){
@@ -456,8 +404,8 @@ app.controller("paymentBackEndController", function($scope, $http){
         data.push(buffer);
     }
       discountprice = totalprice*0.5;
-      $scope.stylestrike = "text-decoration: line-through;";
-      $scope.saleVisibility = "visibility: visible";
+      $scope.stylestrike = {'text-decoration': 'line-through'};
+      $scope.saleVisibility = {'visibility': 'visible'};
     } 
   else{
       for(var i = 0; i < prices.length; i++){
@@ -492,152 +440,8 @@ app.controller("paymentBackEndController", function($scope, $http){
             console.log(error, 'can not post data.');
         });
     }
+
 });
-
-app.controller('cartCtrl', ['$scope', function($scope) {
-   
-
-  $scope.initMap = function () {
-      var directionsService = new google.maps.DirectionsService();
-      var directionsRenderer = new google.maps.DirectionsRenderer();
-    
-    
-        var location = {lat: 43.72538784490703, lng: -79.45216055559094 };
-        var location2 = {lat: 43.65586404205865, lng:  -79.38256298777402};
-        var marks = [ location, location2 ]
-    
-        var mapOptions = {
-            center: new google.maps.LatLng(marks[0].lat, marks[0].lng)
-      }
-    
-      $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
-    
-      $scope.latlngbounds = new google.maps.LatLngBounds();
-    
-      for (var i = 0; i < marks.length; i++) {
-                var data = marks[i]
-                var myLatlng = new google.maps.LatLng(data.lat, data.lng);
-                var marker = new google.maps.Marker({
-                    position: myLatlng,
-                    map: $scope.map,
-                    title: data.title
-                });
-     
-                //Extend each marker's position in LatLngBounds object.
-                $scope.latlngbounds.extend(marker.position);
-            }
-        
-        //Get the boundaries of the Map.
-        // var bounds = new google.maps.LatLngBounds();
-     
-        //Center map and adjust Zoom based on the position of all markers.
-        $scope.map.setCenter($scope.latlngbounds.getCenter());
-        $scope.map.fitBounds($scope.latlngbounds);
-    
-      var marker2 = new google.maps.Marker(
-        {position: location, map: $scope.map});    
-      var infoWindow1 = new google.maps.InfoWindow(
-        { content:   "<h5> Yorkdale Shopping Mall </h5> <p>3401 Dufferin St, Toronto, ON M6A 2T9</p> "  });
-      marker2.addListener("click", function()
-        { infoWindow1.open($scope.map, marker2); });
-      var marker3 = new google.maps.Marker(
-        {position: location2, map: $scope.map});    
-      var infoWindow2 = new google.maps.InfoWindow(
-        { content:  "<h5> Eaton centre </h5> <p>220 Yonge St, Toronto, ON M5B 2H1</p> "});
-      marker3.addListener("click", function()
-        { infoWindow2.open($scope.map, marker3); });
-      
-        directionsRenderer.setMap($scope.map);
-
-
-        $scope.onChangeHandler = function () {
-          $scope.calculateAndDisplayRoute(directionsService, directionsRenderer);
-        };
-        // document.getElementById("address").addEventListener("change", onChangeHandler);
-        // document.querySelector(".button").addEventListener("click", onChangeHandler);
-        // $(".button").click(onChangeHandler);
-    
-      }
-
-      $scope.calculateAndDisplayRoute = function(directionsService, directionsRenderer) {
-
-        $scope.getDirections = directionsService
-          .route({
-            origin: {
-              query: "Eaton Centre, Ontario",
-            },
-            destination: {
-              query: document.getElementById("address").value,
-            },
-            travelMode: google.maps.TravelMode.DRIVING,
-          }
-          )
-          .then((response) => {
-            
-            console.log(response.routes[0].legs[0].start_address);
-            var toEaton = String(response.routes[0].legs[0].distance.text)
-    
-            toEaton = toEaton.substring(0 ,toEaton.length - 3);
-    
-            directionsService.route({origin: {
-              query: "Yorkdale Mall, Ontario",
-            },
-            destination: {
-              query: document.getElementById("address").value,
-            },
-            travelMode: google.maps.TravelMode.DRIVING,
-          }).then((response1) => {
-            var toYd = String(response1.routes[0].legs[0].distance.text);
-            toYd = toYd.substring(0 ,toYd.length - 3);
-            // console.log(response1.routes[0].legs[0].distance.text);
-  
-    
-          $('.transfer').click(function(){
-            data_transfer();
-          });
-    
-    
-            if (parseInt(toEaton) < parseInt(toYd)){
-              // console.log(response1.routes[0].legs[0].distance.text);
-              console.log(response.routes[0].legs[0].end_address);
-              distance = response.routes[0].legs[0].distance.text;
-              start = response.routes[0].legs[0].start_address;
-              end = response.routes[0].legs[0].end_address;
-              directionsRenderer.setDirections(response);
-              
-            }
-            else{
-              console.log(response.routes[0].legs[0].end_address);
-              console.log(response1.routes[0].legs[0].end_address);
-              distance = response1.routes[0].legs[0].distance.text;
-              start = response1.routes[0].legs[0].start_address;
-              end = response1.routes[0].legs[0].end_address;
-              directionsRenderer.setDirections(response1);
-            }
-    
-            localStorage.setItem('name', $('#firstname').val() + " " + $('#lastname').val());
-            localStorage.setItem('distance', distance);
-            localStorage.setItem('source', start);
-            localStorage.setItem('destination', end);
-    
-            // marks[0].setMap(null);
-            // marks[1].setMap(null);
-          }).catch((e) => window.alert("Directions request failed due to " + status));
-    
-          })
-          .catch((e) => window.alert("Directions request failed due to " + status));
-        }
-
-        $('.route').click(function(){
-        const e = document.querySelector(".transfer");
-        console.log(e)
-        e.style.visibility = "visible";
-      });
-
-    
-    //  $scope.initMap();
-    //  $scope.calculateAndDisplayRoute();
-  }]);
 
   app.controller('locationsController', ['$scope', function($scope) {
 
@@ -751,16 +555,8 @@ app.directive('reviews', ['$compile', function ($compile, $scope) {
     };
  }]);
 
-app.controller("contactCtrl", function ($scope) {
-    
-  });
-app.controller("homeCtrl", function ($scope) {
-    
-});
-
 app.controller("signInCtrl", function ($scope) {
-    document.getElementById("nav").className = "enabled";
-    
+    document.getElementById("nav").className = "enabled"; 
   });
 
 
@@ -1017,24 +813,5 @@ app.directive('items', ['$compile', function ($compile, $scope) {
  }]);
 
 </script>
-<script>
-    $(function(){
-    $('.dropdown').hover(function() {
-        $(this).addClass('open');
-    },
-    function() {
-        $(this).removeClass('open');
-    });
-  });
-  
-    function toggleDropdown() {
-        const e = document.querySelector(".submenu");
-        if(e.style.display == "block"){
-            e.style.display = "none"
-        } else {
-            e.style.display = "block"
-        }
-  
-      }
-      document.getElementById("submenudrop").addEventListener("click", toggleDropdown);
-   </script>
+<script src="js/cartCtrl.js"></script>
+<script src="js/shopTabSubMenu.js"></script>
